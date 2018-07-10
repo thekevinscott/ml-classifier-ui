@@ -1,8 +1,9 @@
+// import * as tf from '@tensorflow/tfjs';
 import * as React from 'react';
 import styled from 'styled-components';
 import Dropzone from './Dropzone';
 import Model from './Model';
-import MLClassifier from 'ml-classifier';
+// import MLClassifier from 'ml-classifier';
 import getFilesAsImages, {
   IImageData,
   IFileData,
@@ -34,7 +35,10 @@ const Classifier = styled.div `
 `;
 
 interface IProps {
+  MLClassifier: any;
 }
+
+console.log('and i am ml-classifier-ui v2');
 
 interface IState {
   status: string;
@@ -60,7 +64,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.classifier = new MLClassifier({
+    this.classifier = new this.props.MLClassifier({
       validationSplit: 0.2,
       callbacks: {
         onTrainEnd: () => {
@@ -72,9 +76,6 @@ class MLClassifierUI extends React.Component<IProps, IState> {
           // console.log(batch, logs);
           console.log('Loss is: ' + logs.loss.toFixed(5));
         },
-        // onEvaluate: (...args: any[]) => {
-        //   console.log('onevaluate', args);
-        // },
       },
     });
   }
@@ -106,12 +107,22 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   private train = async (images:IImageData[] = []) => {
-    const imageData = images.map(image => {
+  console.log(this.classifier);
+    const imageData = images.map((image) => {
+      const data = this.classifier.tf.fromPixels(image.image);
       return {
         label: image.label,
-        data: this.classifier.tf.fromPixels(image.image),
+        data,
       };
     });
+    // const imageData = await Promise.all(images.map(async (image) => {
+    //   const data = await this.classifier.tf.fromPixels(image.image);
+    //   // const data = await this.classifier.tf.fromPixels(image.image).data();
+    //   return {
+    //     label: image.label,
+    //     data,
+    //   };
+    // }));
 
     await this.classifier.train(imageData, {
     });

@@ -27,6 +27,7 @@ const Container = div `
   height: 100%;
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
 
@@ -34,9 +35,23 @@ const Container = div `
     display: none;
   }
 
-  background: ${props => props.over ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0)'};
-  border: 2px dashed ${props => props.over ? 'green' : 'rgba(0,0,0,0.2)'};
+  background: ${props => props.over ? 'rgba(155,77,202,0.2)' : 'rgba(0,0,0,0)'};
+  border: 2px dashed ${props => props.over ? '#9b4dca;' : 'rgba(0,0,0,0.2)'};
   transition-duration: ${props => props.over ? '0.1s' : '0.2s'};
+
+/*
+  &:before {
+    content: "";
+    border-left: 2px solid #9b4dca;
+    border-top: 2px solid #9b4dca;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    border-radius: 5px 0 0 0;
+  }
+  */
 `;
 
 class Dropzone extends React.Component<IProps, IState> {
