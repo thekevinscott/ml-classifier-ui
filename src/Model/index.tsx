@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Evaluator from './Evaluator';
-import Metrics from './Metrics';
+import Metrics, { IDatum } from './Metrics';
 import {
   IImageData,
 } from '../utils/getFilesAsImages';
@@ -11,6 +11,11 @@ interface IProps {
   downloading: boolean;
   onDownload?: Function;
   predict?: Function;
+  evaluate: Function;
+  accuracy: {
+    training?: number;
+    evaluation?: number;
+  };
 }
 
 interface IState {
@@ -28,7 +33,20 @@ class Model extends React.Component<IProps, IState> {
       onDownload,
       downloading,
       predict,
+      evaluate,
+      accuracy: {
+        training,
+        evaluation,
+      },
     } = this.props;
+
+    const accuracy: IDatum[] = [{
+      data: training ? `${training * 100}%` : '--',
+      label: 'Training',
+    }, {
+      data: evaluation ? `${evaluation * 100}%` : '--',
+      label: 'Evaluation',
+    }];
 
     return (
       <Container>
@@ -36,9 +54,10 @@ class Model extends React.Component<IProps, IState> {
           images={images}
           onDownload={onDownload}
           downloading={downloading}
+          accuracy={accuracy}
         />
         {predict && (
-          <Evaluator predict={predict} />
+          <Evaluator predict={predict} evaluate={evaluate} />
         )}
       </Container>
     );

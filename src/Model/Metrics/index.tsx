@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Info from './Info';
+import Info, {
+  IDatum,
+} from './Info';
 import {
   IImageData,
 } from '../../utils/getFilesAsImages';
@@ -9,6 +11,7 @@ interface IProps {
   images?: IImageData[];
   downloading: boolean;
   onDownload?: Function;
+  accuracy: IDatum[];
 }
 
 interface IState {
@@ -67,6 +70,7 @@ class Metrics extends React.Component<IProps, IState> {
       images,
       onDownload,
       downloading,
+      accuracy,
     } = this.props;
 
     return (
@@ -77,13 +81,7 @@ class Metrics extends React.Component<IProps, IState> {
         />
         <Info
           title="Accuracy"
-          data={[{
-            data: '100%',
-            label: 'Training',
-          }, {
-            data: '--',
-            label: 'Evaluation',
-          }]}
+          data={accuracy}
         />
         <Footer>
           <Logs>
@@ -104,3 +102,5 @@ class Metrics extends React.Component<IProps, IState> {
 }
 
 export default Metrics;
+
+export { IMetricsInfoProps, IDatum } from './Info';

@@ -10,9 +10,12 @@ import {
 
 interface IProps {
   predict: Function;
+  evaluate: Function;
 }
 
 interface IState {
+  imagesParsed: number;
+  totalFiles: number;
   predictions: IPrediction[];
 }
 
@@ -21,24 +24,41 @@ class Evaluator extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      imagesParsed: 0,
       predictions: [],
+      totalFiles: 0,
     };
   }
 
   private onParseFiles = async (files: FileList) => {
     console.log('on parse test files');
-    return getFilesAsImages(files, async (image: HTMLImageElement, label:string, files: IFileData[]) => {
-      console.log(image);
-      const prediction = await this.props.predict(image);
-      console.log('incoming', prediction);
+
+    return getFilesAsImages(files, (image: HTMLImageElement, label: string, files: IFileData[]) => {
       this.setState({
-        predictions: this.state.predictions.concat({
-          prediction,
-          label,
-          image,
-        }),
+        imagesParsed: this.state.imagesParsed + 1,
+        totalFiles: files.length,
       });
+    }).then(images => {
+      this.props.evaluate(images);
     });
+    /*
+    const images = await getFilesAsImages(files, async (image: HTMLImageElement, label:string, files: IFileData[]) => {
+      return {
+      };
+      console.log(image);
+      // const prediction = await this.props.predict(image);
+      // console.log('incoming', prediction);
+      // this.setState({
+      //   predictions: this.state.predictions.concat({
+      //     prediction,
+      //     label,
+      //     image,
+      //   }),
+      // });
+    });
+    this.props.evaluate(images);
+    // return images;
+     */
   }
 
   render() {

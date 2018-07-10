@@ -28,15 +28,17 @@ const Header = styled.h2 `
   margin: 0;
 `;
 
-interface IProps {
+export interface IMetricsInfoProps {
   title: string;
-  data: {
-    data: string | number;
-    label: string;
-  }[];
+  data: IDatum[];
 }
 
-const Info: React.SFC<IProps> = ({
+export interface IDatum {
+  data: string | number;
+  label: string;
+}
+
+const Info: React.SFC<IMetricsInfoProps> = ({
   title,
   data,
 }) => {
@@ -44,7 +46,7 @@ const Info: React.SFC<IProps> = ({
     <React.Fragment>
       <Header>{title}</Header>
       <Data>
-        {data.map(datum => (
+        {data.map((datum: IDatum) => (
           <Datum key={datum.label}>
             <data>{datum.data}</data>
             <label>{datum.label}</label>

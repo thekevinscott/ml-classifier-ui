@@ -8,6 +8,8 @@
     "clean": "rimraf dist/*",
     "watch": "npm run build -- --watch",
     "build": "npm run clean && tsc --project tsconfig.json",
+    "prepublish": "npm run build",
+    "example": "node example/server.js",
     "test": "jest"
   },
   "keywords": [
@@ -33,8 +35,8 @@
     ]
   },
   "peerDependencies": {
-    "react": "^16.4.1",
-    "@tensorflow/tfjs": "^0.11.7"
+    "@tensorflow/tfjs": "^0.11.7",
+    "react": "^16.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.51",
@@ -43,6 +45,7 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-stage-0": "^7.0.0-beta.51",
     "@babel/preset-typescript": "^7.0.0-beta.51",
+    "@tensorflow/tfjs": "^0.11.7",
     "@types/jest": "^23.1.1",
     "@types/node": "^10.3.4",
     "@types/react": "^16.4.6",
@@ -52,18 +55,19 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "chalk": "1.1.3",
+    "express": "^4.16.3",
     "jest": "22.4.2",
+    "react": "^16.4.1",
     "regenerator-runtime": "^0.12.0",
     "rimraf": "^2.6.2",
     "ts-jest": "22.0.1",
     "ts-loader": "^2.3.7",
     "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.10.0",
-    "react": "^16.4.1",
-    "@tensorflow/tfjs": "^0.11.7",
     "typescript": "^2.9.2"
   },
   "dependencies": {
+    "ml-classifier": "^0.2.3",
     "react-spinners": "^0.3.2",
     "styled-components": "^3.3.3"
   }
