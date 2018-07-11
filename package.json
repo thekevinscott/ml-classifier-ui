@@ -7,7 +7,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "npm run clean:generated_files && npm run lean:style_types",
-    "clean:generated_files": "rimraf index.js index.d.ts index.css utils Preview Model Dropzone",
+    "clean:generated_files": "rimraf index.js index.d.ts index.css utils Preview Model Dropzone dist",
     "clean:style_types": "rimraf src/**/*.css.d.ts src/**/*.scss.d.ts",
     "watch": "npm run build -- --watch",
     "build": "npm run clean:style_types && rollup -c",
