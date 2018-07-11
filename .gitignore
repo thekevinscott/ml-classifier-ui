@@ -1,10 +1,9 @@
 node_modules
 
 # Don't include generated files
-dist/**/*.(css|js|ts)
-dist/*.(css|js|ts)
-**/*.(css|js|ts)
-*.(css|js|ts)
+*.css
+*.js
+*.d.ts
 
 # Various caches, error logs and such
 yarn-error.log

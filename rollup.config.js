@@ -7,7 +7,7 @@ export default {
   entry: './src/index.tsx',
   output: {
     name: 'MLClassifierUI',
-    file: './dist/index.js',
+    file: './index.js',
     format: 'umd',
   },
   plugins: [
