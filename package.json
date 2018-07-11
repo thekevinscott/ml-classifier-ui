@@ -8,8 +8,8 @@
     "clean": "rimraf dist/*",
     "watch": "npm run build -- --watch",
     "old_build": "npm run clean && tsc --project tsconfig.json",
-    "make": "npm run clean && rollup -c --watch",
-    "prepublish": "npm run build",
+    "build": "npm run clean && rollup -c --watch",
+    "publish": "npm run build && npm publish",
     "example": "node example/server.js",
     "test": "jest"
   },
@@ -63,6 +63,7 @@
     "regenerator-runtime": "^0.12.0",
     "rimraf": "^2.6.2",
     "rollup": "^0.62.0",
+    "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-typescript2": "^0.15.1",
     "ts-jest": "22.0.1",
     "ts-loader": "^2.3.7",
@@ -72,7 +73,7 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "ml-classifier": "^0.2.4",
+    "ml-classifier": "^0.2.3",
     "react-spinners": "^0.3.2",
     "styled-components": "^3.3.3"
   }

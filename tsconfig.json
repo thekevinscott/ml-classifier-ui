@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
     "baseUrl": ".",
     "outDir": "dist",
-    "module": "esnext",
     "target": "es5",
     "lib": ["esnext", "dom"],
-
     "sourceMap": true,
     "allowJs": false,
-    "declaration": true,
     "jsx": "react",
-    "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -33,4 +31,3 @@
     "node_modules"
   ]
 }
-
