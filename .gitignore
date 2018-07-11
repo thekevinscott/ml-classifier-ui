@@ -1,5 +1,6 @@
 node_modules
 dist
+**/*.css.d.ts
 yarn-error.log
 .rpt2_cache
 package-lock.json
