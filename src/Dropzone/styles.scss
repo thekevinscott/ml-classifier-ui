@@ -1,0 +1,25 @@
+.container {
+  text-align: center;
+  font-size: 2rem;
+  color: rgba(0,0,0,0.4);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0);
+  border: 2px dashed rgba(0,0,0,0.2);
+  transition-duration: 0.2s;
+
+  &.over {
+    background: rgba(155,77,202,0.2);
+    border: 2px dashed #9b4dca;
+    transition-duration: 0.1s;
+  }
+}
+
+.input {
+  display: none;
+}
