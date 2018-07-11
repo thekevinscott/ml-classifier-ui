@@ -1,42 +1,46 @@
-// import * as tf from '@tensorflow/tfjs';
-// import styled from 'styled-components';
-// import Dropzone from './Dropzone';
-// import Model from './Model';
-import MLClassifier from 'ml-classifier';
-console.log(MLClassifier);
-// import getFilesAsImages, {
-//   IImageData,
-//   IFileData,
-// } from './utils/getFilesAsImages';
-// import Preview from './Preview';
+import * as React from 'react';
+import styled from 'styled-components';
+import Dropzone from './Dropzone';
+import Model from './Model';
+import MLClassifier, {
+  DataType,
+} from 'ml-classifier';
+import getFilesAsImages, {
+  IImageData,
+  IFileData,
+} from './utils/getFilesAsImages';
+import Preview from './Preview';
 
-// const Classifier = styled.div `
-//   max-width: 300px;
-//   background: white;
-//   height: 300px;
+const Classifier = styled.div `
+  max-width: 300px;
+  background: white;
+  height: 300px;
 
-//   * {
-//     box-sizing: border-box;
-//   }
+  * {
+    box-sizing: border-box;
+  }
 
-//   h1,h2,h3,h4,h5,h6 {
-//     font-weight: inherit;
-//   }
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: inherit;
+  }
 
-//   button {
-//     cursor: pointer;
-//   }
+  button {
+    cursor: pointer;
+  }
 
-//   ul, li {
-//     list-style: none;
-//     margin: 0;
-//     padding: 0;
-//   }
-// `;
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+interface IProps {
+}
 
 interface IState {
   status: string;
-  // images?: IImageData[];
+  images?: IImageData[];
   imagesParsed: number;
   totalFiles: number;
   downloading: boolean;
@@ -46,15 +50,15 @@ interface IState {
   };
 }
 
-class MLClassifierUI {
+class MLClassifierUI extends React.Component<IProps, IState> {
   private classifier: any;
-  private state: IState;
 
-  constructor(target: HTMLElement) {
-    console.log('i am constructor');
+  constructor(props: IProps) {
+    super(props);
+
     this.state = {
       status: 'empty',
-      // images: undefined,
+      images: undefined,
       downloading: false,
       imagesParsed: 0,
       totalFiles: 0,
@@ -63,15 +67,12 @@ class MLClassifierUI {
         evaluation: undefined,
       },
     };
-
-    console.log(MLClassifier);
-    this.classifier = new MLClassifier();
-
-    target.innerHTML = 'foo';
-    console.log(this.classifier, this.state);
   }
 
-  /*
+  componentDidMount() {
+    this.classifier = new MLClassifier();
+  }
+
   private onDrop = (files: FileList) => {
     this.setState({
       status: 'uploading',
@@ -200,38 +201,37 @@ class MLClassifierUI {
       downloading: false,
     });
   };
-  */
 
-  // public render() {
-  //   return (
-  //     <Classifier>
-  //       {this.state.status === 'empty' && (
-  //         <Dropzone
-  //           onDrop={this.onDrop}
-  //           onParseFiles={this.onParseFiles}
-  //         />
-  //       )}
-  //       {['training', 'uploading', 'parsing'].includes(this.state.status) && (
-  //         <Preview
-  //           status={this.state.status}
-  //           images={this.state.images}
-  //           imagesParsed={this.state.imagesParsed}
-  //           totalFiles={this.state.totalFiles}
-  //         />
-  //       )}
-  //       {this.state.status === 'trained' && this.state.images && (
-  //         <Model
-  //           images={this.state.images}
-  //           downloading={this.state.downloading}
-  //           onDownload={this.handleDownload}
-  //           predict={this.predict}
-  //           evaluate={this.evaluate}
-  //           accuracy={this.state.accuracy}
-  //         />
-  //       )}
-  //     </Classifier>
-  //   );
-  // }
+  public render() {
+    return (
+      <Classifier>
+        {this.state.status === 'empty' && (
+          <Dropzone
+            onDrop={this.onDrop}
+            onParseFiles={this.onParseFiles}
+          />
+        )}
+        {['training', 'uploading', 'parsing'].includes(this.state.status) && (
+          <Preview
+            status={this.state.status}
+            images={this.state.images}
+            imagesParsed={this.state.imagesParsed}
+            totalFiles={this.state.totalFiles}
+          />
+        )}
+        {this.state.status === 'trained' && this.state.images && (
+          <Model
+            images={this.state.images}
+            downloading={this.state.downloading}
+            onDownload={this.handleDownload}
+            predict={this.predict}
+            evaluate={this.evaluate}
+            accuracy={this.state.accuracy}
+          />
+        )}
+      </Classifier>
+    );
+  }
 }
 
 export default MLClassifierUI;
