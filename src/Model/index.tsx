@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styles from './styles.scss';
 import Evaluator from './Evaluator';
 import Metrics, { IDatum } from './Metrics';
 import {
@@ -20,11 +20,6 @@ interface IProps {
 
 interface IState {
 }
-
-const Container = styled.div `
-  display: flex;
-  flex-direction: column;
-`;
 
 class Model extends React.Component<IProps, IState> {
   render() {
@@ -49,7 +44,7 @@ class Model extends React.Component<IProps, IState> {
     }];
 
     return (
-      <Container>
+      <div className={styles.container}>
         <Metrics
           images={images}
           onDownload={onDownload}
@@ -59,7 +54,7 @@ class Model extends React.Component<IProps, IState> {
         {predict && (
           <Evaluator predict={predict} evaluate={evaluate} />
         )}
-      </Container>
+      </div>
     );
   }
 }

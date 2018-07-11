@@ -1,11 +1,11 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styles from './styles.scss';
 import Info, {
   IDatum,
 } from './Info';
 import {
   IImageData,
-} from '../../utils/getFilesAsImages';
+} from 'utils/getFilesAsImages';
 
 interface IProps {
   images?: IImageData[];
@@ -13,38 +13,6 @@ interface IProps {
   onDownload?: Function;
   accuracy: IDatum[];
 }
-
-interface IState {
-}
-
-const Container = styled.div `
-  border-radius: 5px 5px 0 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,13,51,0.6);
-  padding: 20px;
-  color: rgba(255,255,255,0.8);
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-
-  button {
-    width: 120px;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-  }
-`;
-
-const Footer = styled.div `
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-`;
-
-const Logs = styled.div `
-  flex: 1;
-`;
 
 interface IData {
   label: string;
@@ -64,7 +32,7 @@ const getData = (images: IData[] = []) => {
   });
 };
 
-class Metrics extends React.Component<IProps, IState> {
+class Metrics extends React.Component<IProps> {
   render() {
     const {
       images,
@@ -74,7 +42,7 @@ class Metrics extends React.Component<IProps, IState> {
     } = this.props;
 
     return (
-      <Container>
+      <div className={styles.container}>
         <Info
           title="Data"
           data={getData(images)}
@@ -83,10 +51,10 @@ class Metrics extends React.Component<IProps, IState> {
           title="Accuracy"
           data={accuracy}
         />
-        <Footer>
-          <Logs>
+        <div className={styles.footer}>
+          <div className={styles.logs}>
             logs
-          </Logs>
+          </div>
           {onDownload && (
             <button
               disabled={downloading}
@@ -95,8 +63,8 @@ class Metrics extends React.Component<IProps, IState> {
               Download
             </button>
           )}
-        </Footer>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

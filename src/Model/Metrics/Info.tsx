@@ -1,32 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
-
-const Data = styled.ul `
-  display: flex;
-  margin-bottom: 20px !important;
-`;
-
-const Datum = styled.li `
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-
-  data {
-    font-size: 40px;
-  }
-
-  label {
-    color: rgba(255,255,255,0.6);
-  }
-
-`;
-
-const Header = styled.h2 `
-  font-size: 16px;
-  margin: 0;
-`;
+import styles from './styles.scss';
 
 export interface IMetricsInfoProps {
   title: string;
@@ -44,15 +17,15 @@ const Info: React.SFC<IMetricsInfoProps> = ({
 }) => {
   return (
     <React.Fragment>
-      <Header>{title}</Header>
-      <Data>
+      <h2 className={styles.header}>{title}</h2>
+      <ul className={styles.data}>
         {data.map((datum: IDatum) => (
-          <Datum key={datum.label}>
+          <li className={styles.datum} key={datum.label}>
             <data>{datum.data}</data>
             <label>{datum.label}</label>
-          </Datum>
+          </li>
         ))}
-      </Data>
+      </ul>
     </React.Fragment>
   );
 };
