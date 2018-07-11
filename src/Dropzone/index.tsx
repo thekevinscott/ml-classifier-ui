@@ -55,7 +55,7 @@ const Container = div `
 `;
 
 class Dropzone extends React.Component<IProps, IState> {
-  private timeout: NodeJS.Timer;
+  private timeout: number;
   constructor(props: IProps) {
     super(props);
 

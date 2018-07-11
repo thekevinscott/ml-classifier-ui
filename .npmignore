@@ -6,4 +6,5 @@ tsconfig.json
 tslint.json
 yarn.lock
 rollup.config.js
-config
+scripts
+package-lock.json

@@ -1,3 +1,4 @@
+/*
 // import * as tf from '@tensorflow/tfjs';
 import * as React from 'react';
 import styled from 'styled-components';
@@ -236,3 +237,11 @@ class MLClassifierUI extends React.Component<IProps, IState> {
 }
 
 export default MLClassifierUI;
+*/
+
+const Foo = () => {
+  console.log('foo');
+  return 'br';
+};
+
+export default Foo;
