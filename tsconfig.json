@@ -5,16 +5,16 @@
     "module": "esnext",
     "target": "es5",
     "lib": ["esnext", "dom"],
-
     "sourceMap": true,
     "allowJs": false,
     "declaration": true,
-    "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
+    "jsx": "react",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
@@ -22,15 +22,18 @@
       "*": [
         "src/*"
       ]
-    },
-    "noUnusedLocals": true
+    }
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
+    "__tests__",
+    "__mocks__",
     "**/*.test.ts",
+    "src/types.ts",
     "node_modules"
   ]
 }
+
 
