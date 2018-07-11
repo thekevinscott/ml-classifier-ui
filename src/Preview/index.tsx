@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled, { StyledFunction } from "styled-components"
+import classNames from 'utils/classNames';
+import styles from './styles.scss';
 import { ClipLoader } from 'react-spinners';
 import {
   IImageData,
@@ -15,39 +16,6 @@ interface IProps {
 interface IState {
   imageIdx: number;
 }
-
-interface ContainerProps {
-  images?: any;
-}
-
-const div: StyledFunction<ContainerProps & React.HTMLProps<HTMLInputElement>> = styled.div;
-const Container = div `
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border: 2px dashed ${props => props.images ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.2)'};
-
-  img, canvas {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-`;
-
-const Loader = styled.div `
-  opacity: 0.2;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const LOOP_SPEED = 100;
 
@@ -97,18 +65,22 @@ class Preview extends React.Component<IProps, IState> {
     } = this.props;
 
     const image = images && images[this.state.imageIdx % images.length];
+
+    const className = classNames(styles.container, {
+      [styles.images]: images && images.length > 0,
+    });
     return (
-      <Container images={images}>
+      <div className={className}>
         {image && (
           <img src={image.image.src} />
         )}
-        <Loader>
+        <div className={styles.loader}>
           <ClipLoader />
           {status === 'uploading' && (<span>Reading images</span>)}
           {status === 'parsing' && (<span>{imagesParsed} images of {totalFiles} converted</span>)}
           {status === 'training' && (<span>Training {(images || []).length} images</span>)}
-        </Loader>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

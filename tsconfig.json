@@ -31,6 +31,7 @@
     "__tests__",
     "__mocks__",
     "**/*.test.ts",
+    "**/*.scss.d.ts",
     "src/types.ts",
     "node_modules"
   ]

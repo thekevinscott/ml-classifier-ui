@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import * as classNames from 'classnames';
+import classNames from 'utils/classNames';
 import transformFiles from './transformFiles';
 
 import styles from './styles.scss'
@@ -74,7 +74,9 @@ class Dropzone extends React.Component<IProps, IState> {
 
   public render() {
     console.log('over', this.state.over);
-    const className = `${styles.container} ${this.state.over ? styles.over : ''}`;
+    const className = classNames(styles.container, {
+      [styles.over]: this.state.over,
+    });
     return (
       <div
         className={className}

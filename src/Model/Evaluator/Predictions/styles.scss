@@ -1,0 +1,21 @@
+.container {
+  img {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+  }
+}
+
+.info {
+  border-radius: 0 0 5px 5px;
+  background: rgba(0,13,51,0.6);
+  padding: 10px !important;
+  display: flex;
+  color: rgba(255,255,255,0.8);
+  flex: 1;
+  margin-bottom: 20px !important;
+
+  &:last-child {
+    text-align: right;
+  }
+}
