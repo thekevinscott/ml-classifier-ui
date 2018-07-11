@@ -1,10 +1,12 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import styles from './styles.scss';
 import Dropzone from '../Dropzone';
 import Model from '../Model';
-import MLClassifier, {
-  DataType,
-} from 'ml-classifier';
+// import MLClassifier, {
+//   DataType,
+// } from 'ml-classifier';
+import { DataType } from 'ml-classifier';
 import getFilesAsImages, {
   IImageData,
   IFileData,
@@ -46,7 +48,8 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.classifier = new MLClassifier();
+    this.classifier = {};
+    // this.classifier = new MLClassifier();
   }
 
   private onDrop = (files: FileList) => {
@@ -210,5 +213,6 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 }
 
-export default MLClassifierUI;
-
+export default (target:HTMLElement) => {
+  ReactDOM.render(<MLClassifierUI />, target);
+};

@@ -8,6 +8,11 @@ import autoprefixer from 'autoprefixer';
 export default {
   input: './src/index.ts',
   output: {
+    globals: {
+      react: 'React',
+      'react-spinners': 'reactSpinners',
+      'react-dom': 'ReactDOM',
+    },
     name: 'MLClassifierUI',
     file: './dist/index.js',
     format: 'umd',
