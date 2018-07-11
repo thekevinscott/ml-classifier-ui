@@ -1,6 +1,16 @@
 node_modules
-dist
-**/*.css.d.ts
+
+# Don't include generated files
+dist/**/*.(css|js|ts)
+dist/*.(css|js|ts)
+**/*.(css|js|ts)
+*.(css|js|ts)
+
+# Various caches, error logs and such
 yarn-error.log
 .rpt2_cache
 package-lock.json
+
+# Don't include stylesheet typings
+src/*.css.d.ts
+src/**/*.css.d.ts
