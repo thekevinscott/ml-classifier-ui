@@ -6,10 +6,10 @@ import postcss from 'rollup-plugin-postcss-modules';
 import autoprefixer from 'autoprefixer';
 
 export default {
-  entry: './src/index.tsx',
+  entry: './src/index.ts',
   output: {
     name: 'MLClassifierUI',
-    file: './index.js',
+    file: './dist/index.js',
     format: 'umd',
   },
   plugins: [
