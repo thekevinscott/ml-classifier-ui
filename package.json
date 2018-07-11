@@ -7,12 +7,7 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "watch": "npm run build -- --watch",
-<<<<<<< HEAD
-    "build": "npm run clean && tsc --project tsconfig.json",
-    "publish": "npm run build && npm publish",
-=======
     "build": "npm run clean && rollup -c",
->>>>>>> ccee886d538cb84b04137ce2f4501af01d197bf4
     "example": "node example/server.js",
     "test": "jest"
   },
