@@ -4,6 +4,7 @@ node_modules
 *.css
 *.js
 *.d.ts
+dist
 
 # Various caches, error logs and such
 yarn-error.log
