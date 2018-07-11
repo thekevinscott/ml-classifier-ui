@@ -8,7 +8,7 @@
     "clean": "rimraf dist/*",
     "watch": "npm run build -- --watch",
     "build": "npm run clean && tsc --project tsconfig.json",
-    "prepublish": "npm run build",
+    "publish": "npm run build && npm publish",
     "example": "node example/server.js",
     "test": "jest"
   },
