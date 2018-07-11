@@ -74,6 +74,7 @@
     "rerun-script": "^0.6.0",
     "rimraf": "^2.6.2",
     "rollup": "^0.62.0",
+    "rollup-plugin-image": "^1.0.2",
     "rollup-plugin-postcss-modules": "^1.0.8",
     "rollup-plugin-typescript2": "^0.15.1",
     "ts-jest": "22.0.1",
@@ -84,7 +85,6 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "ml-classifier": "^0.3.1",
-    "react-spinners": "^0.3.2"
+    "ml-classifier": "^0.3.1"
   }
 }

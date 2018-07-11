@@ -3,6 +3,7 @@ import path from 'path';
 import sass from 'node-sass';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss-modules';
+import image from 'rollup-plugin-image';
 import autoprefixer from 'autoprefixer';
 
 export default {
@@ -10,7 +11,6 @@ export default {
   output: {
     globals: {
       react: 'React',
-      'react-spinners': 'reactSpinners',
       'react-dom': 'ReactDOM',
     },
     name: 'MLClassifierUI',
@@ -18,6 +18,7 @@ export default {
     format: 'umd',
   },
   plugins: [
+    image(),
     postcss({
       preprocessor: (content, id) => new Promise(resolve => {
         const result = sass.renderSync({ file: id });

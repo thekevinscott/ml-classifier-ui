@@ -73,7 +73,6 @@ class Dropzone extends React.Component<IProps, IState> {
   }
 
   public render() {
-    console.log('over', this.state.over);
     const className = classNames(styles.container, {
       [styles.over]: this.state.over,
     });
