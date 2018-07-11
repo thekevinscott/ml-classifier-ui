@@ -2,6 +2,9 @@ import * as React from 'react';
 import styled, { StyledFunction } from "styled-components"
 import transformFiles from './transformFiles';
 
+import styles from './styles.css'
+console.log(styles);
+
 interface IProps {
   onDrop?: Function;
   onParseFiles: Function;
@@ -114,6 +117,7 @@ class Dropzone extends React.Component<IProps, IState> {
   public render() {
     return (
       <Container
+        className={styles.container}
         draggable={true}
         // onDragStart={this.handleDrag(true)}
         // onDragEnd={this.handleDrag(false)}

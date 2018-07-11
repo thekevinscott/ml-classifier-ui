@@ -1,6 +1,7 @@
 // rollup.config.js
 import typescript from 'rollup-plugin-typescript2';
-import postcss from 'rollup-plugin-postcss';
+import postcss from 'rollup-plugin-postcss-modules';
+import autoprefixer from 'autoprefixer';
 
 export default {
   entry: './src/index.tsx',
@@ -10,10 +11,13 @@ export default {
     format: 'umd',
   },
   plugins: [
-    typescript({
-    }),
     postcss({
-      plugins: [],
+      extract: true,
+      plugins: [autoprefixer()],
+      writeDefinitions: true,
+      modules: true,
+    }),
+    typescript({
     }),
   ],
 };
