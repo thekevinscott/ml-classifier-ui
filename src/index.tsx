@@ -1,4 +1,3 @@
-// import * as tf from '@tensorflow/tfjs';
 import * as React from 'react';
 import styled from 'styled-components';
 import Dropzone from './Dropzone';
