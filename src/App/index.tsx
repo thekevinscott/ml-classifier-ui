@@ -1,18 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import styles from './styles.scss';
 import Dropzone from '../Dropzone';
-import Model from '../Model';
-// import MLClassifier, {
-//   DataType,
-// } from 'ml-classifier';
-import { DataType } from 'ml-classifier';
 import getFilesAsImages, {
   IImageData,
   IFileData,
 } from 'utils/getFilesAsImages';
-import Preview from '../Preview';
 
+import styles from './styles.scss';
 interface IProps {
 }
 
@@ -27,6 +21,17 @@ interface IState {
     evaluation?: number;
   };
 }
+
+import Model from '../Model';
+import Preview from '../Preview';
+
+// import MLClassifier, {
+//   DataType,
+// } from 'ml-classifier';
+enum DataType {
+  TRAIN = "train",
+  EVAL = "eval",
+};
 
 class MLClassifierUI extends React.Component<IProps, IState> {
   private classifier: any;
@@ -214,5 +219,6 @@ class MLClassifierUI extends React.Component<IProps, IState> {
 }
 
 export default (target:HTMLElement) => {
+  // target.innerHTML = 'foobar';
   ReactDOM.render(<MLClassifierUI />, target);
 };

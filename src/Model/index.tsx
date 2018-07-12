@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './styles.scss';
+// const styles = require('./styles.scss');
 import Evaluator from './Evaluator';
 import Metrics, { IDatum } from './Metrics';
 import {

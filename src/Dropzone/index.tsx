@@ -1,8 +1,7 @@
 import * as React from 'react';
 import classNames from 'utils/classNames';
 import transformFiles from './transformFiles';
-
-import styles from './styles.scss'
+import styles from './styles.scss';
 
 interface IProps {
   onDrop?: Function;

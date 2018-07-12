@@ -1,7 +1,8 @@
 import * as React from 'react';
 import classNames from 'utils/classNames';
 import styles from './styles.scss';
-import loading from '../assets/loading.gif';
+// const styles = require('./styles.scss');
+// import loading from '../assets/loading.gif';
 import {
   IImageData,
 } from '../utils/getFilesAsImages';
@@ -75,7 +76,9 @@ class Preview extends React.Component<IProps, IState> {
           <img src={image.image.src} />
         )}
         <div className={styles.loader}>
+          { /*
           <img src={loading} />
+          */ }
           {status === 'uploading' && (<span>Reading images</span>)}
           {status === 'parsing' && (<span>{imagesParsed} images of {totalFiles} converted</span>)}
           {status === 'training' && (<span>Training {(images || []).length} images</span>)}
