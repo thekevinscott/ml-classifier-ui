@@ -6,7 +6,7 @@ import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss-modules';
 import image from 'rollup-plugin-image';
-// import resolve from 'rollup-plugin-node-resolve';
+import resolve from 'rollup-plugin-node-resolve';
 import autoprefixer from 'autoprefixer';
 
 export default {
@@ -28,9 +28,17 @@ export default {
     format: 'umd',
   },
   plugins: [
-    // resolve({
-    //   jsnext: true,
-    // }),
+    resolve({
+      jsnext: true,
+      main: true,
+      extensions: [ '.ts', '.tsx', '.js', '.json' ],
+      only: [
+        'ml-classifier',
+      ],
+    }),
+    typescript({
+      typescript: require("typescript"),
+    }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
@@ -61,8 +69,6 @@ export default {
           },
         ],
       ],
-    }),
-    typescript({
     }),
   ],
 };
