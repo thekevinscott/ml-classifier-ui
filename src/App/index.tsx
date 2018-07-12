@@ -25,9 +25,9 @@ interface IState {
 import Model from '../Model';
 import Preview from '../Preview';
 
-// import MLClassifier, {
-//   DataType,
-// } from 'ml-classifier';
+import MLClassifier, {
+  // DataType,
+} from 'ml-classifier';
 enum DataType {
   TRAIN = "train",
   EVAL = "eval",
@@ -53,8 +53,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.classifier = {};
-    // this.classifier = new MLClassifier();
+    this.classifier = new MLClassifier();
   }
 
   private onDrop = (files: FileList) => {

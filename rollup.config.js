@@ -16,12 +16,12 @@ export default {
     external: [
       'react',
       'react-dom',
+      'tf',
     ],
     globals: {
       'react': 'React',
       'react-dom': 'ReactDOM',
-      'React': 'React',
-      'ReactDOM': 'ReactDOM',
+      '@tensorflow/tfjs': 'tf',
     },
     name: 'MLClassifierUI',
     file: './dist/index.js',
