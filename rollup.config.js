@@ -16,6 +16,9 @@ export default {
     name: 'MLClassifierUI',
     file: './dist/index.js',
     format: 'es',
+    external: [
+      '@tensorflow/tfjs',
+    ],
   },
   plugins: [
     resolve({

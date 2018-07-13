@@ -9,3 +9,4 @@ rollup.config.js
 scripts
 package-lock.json
 example
+*.tgz
