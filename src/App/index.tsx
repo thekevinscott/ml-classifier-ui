@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as tf from '@tensorflow/tfjs';
 
 import Dropzone from '../Dropzone';
 import getFilesAsImages, {
@@ -13,8 +14,6 @@ interface IProps {
 interface IState {
   status: string;
   images?: IImageData[];
-  imagesParsed: number;
-  totalFiles: number;
   downloading: boolean;
   logs: {
     [index: string]: any;
@@ -46,8 +45,6 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       status: 'empty',
       images: undefined,
       downloading: false,
-      imagesParsed: 0,
-      totalFiles: 0,
       logs: {},
       accuracy: {
         training: undefined,
@@ -72,15 +69,17 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     });
 
     return getFilesAsImages(files, (image: HTMLImageElement, label: string, files: IFileData[]) => {
-      this.setState({
-        imagesParsed: this.state.imagesParsed + 1,
-        totalFiles: files.length,
-      });
+      // this.setState({
+      //   imagesParsed: this.state.imagesParsed + 1,
+      //   totalFiles: files.length,
+      // });
     }).then(images => {
       this.setState({
         status: 'training',
         images,
       });
+
+      return;
 
       return this.train(images);
     });
@@ -101,7 +100,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       image,
       label,
     }) => {
-      const data = this.classifier.tf.fromPixels(image);
+      const data = this.convertImageToTensor(image);
       return {
         imageData: imageData.concat(data),
         labels: labels.concat(label),
@@ -149,7 +148,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   public evaluate = async (images:IImageData[] = []) => {
     const labels: string[] = [];
     const imageData = images.map((image) => {
-      const data = this.classifier.tf.fromPixels(image.image);
+      const data = this.convertImageToTensor(image.image);
       labels.push(image.label);
       return data;
     });
@@ -161,8 +160,9 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     ] = await this.classifier.evaluate();
     console.log('results', one, accuracy);
   }
+
   public predict = async (image:HTMLImageElement) => {
-    const data = this.classifier.tf.fromPixels(image);
+    const data = this.convertImageToTensor(image);
     const {
       history: {
         acc,
@@ -176,6 +176,10 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       },
     });
   };
+
+  private convertImageToTensor = (image: HTMLImageElement) => {
+    return tf.fromPixels(image);
+  }
 
   handleDownload = async () => {
     this.setState({
@@ -198,10 +202,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
         )}
         {['training', 'uploading', 'parsing'].includes(this.state.status) && (
           <Preview
-            status={this.state.status}
             images={this.state.images}
-            imagesParsed={this.state.imagesParsed}
-            totalFiles={this.state.totalFiles}
           />
         )}
         {this.state.status === 'trained' && this.state.images && (

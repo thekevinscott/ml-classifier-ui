@@ -1,5 +1,5 @@
 .loader {
-  opacity: 0.2;
+  opacity: 1;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -7,6 +7,12 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  color: rgba(0,0,0,0.3);
+
+  img {
+    height: auto;
+    width: auto;
+  }
 }
 
 .container {
@@ -19,9 +25,13 @@
   height: 100%;
   border: 2px dashed rgba(0,0,0,0.2);
 
-  img, canvas {
+  .img {
     width: 100%;
     height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
     position: relative;
   }
 

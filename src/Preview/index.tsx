@@ -1,24 +1,21 @@
 import * as React from 'react';
 import classNames from 'utils/classNames';
 import styles from './styles.scss';
+import Loading from '../Loading';
 // const styles = require('./styles.scss');
-// import loading from '../assets/loading.gif';
 import {
   IImageData,
 } from '../utils/getFilesAsImages';
 
 interface IProps {
   images?: IImageData[];
-  status: string;
-  imagesParsed: number;
-  totalFiles: number;
 }
 
 interface IState {
   imageIdx: number;
 }
 
-const LOOP_SPEED = 100;
+const LOOP_SPEED = 150;
 
 class Preview extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -31,10 +28,8 @@ class Preview extends React.Component<IProps, IState> {
 
   private timeout: any;
 
-  componentWillReceiveProps(nextProps: IProps) {
-    if (!this.props.images && nextProps.images) {
-      this.loopImages();
-    }
+  componentWillMount() {
+    this.loopImages();
   }
 
   componentWillUnmount() {
@@ -60,9 +55,6 @@ class Preview extends React.Component<IProps, IState> {
   render() {
     const {
       images,
-      status,
-      imagesParsed,
-      totalFiles,
     } = this.props;
 
     const image = images && images[this.state.imageIdx % images.length];
@@ -70,19 +62,22 @@ class Preview extends React.Component<IProps, IState> {
     const className = classNames(styles.container, {
       [styles.images]: images && images.length > 0,
     });
+    console.log(image && image.image && image.image.src);
     return (
       <div className={className}>
-        {image && (
-          <img src={image.image.src} />
+        {image ? (
+          <div
+            className={styles.img}
+            style={{
+              backgroundImage: `url(${image.image.src})`,
+            }}
+          />
+        ) : (
+          <div className={styles.loader}>
+            <Loading />
+            <span>Reading images</span>
+          </div>
         )}
-        <div className={styles.loader}>
-          { /*
-          <img src={loading} />
-          */ }
-          {status === 'uploading' && (<span>Reading images</span>)}
-          {status === 'parsing' && (<span>{imagesParsed} images of {totalFiles} converted</span>)}
-          {status === 'training' && (<span>Training {(images || []).length} images</span>)}
-        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 {
   "name": "ml-classifier-ui",
   "repository": "https://github.com/thekevinscott/ml-classifier-ui",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "description": "A package for creating image-based machine learning models",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

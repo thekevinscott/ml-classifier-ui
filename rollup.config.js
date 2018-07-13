@@ -38,7 +38,6 @@ export default {
     commonjs({
       ignoreGlobal: false,  // Default: false
     }),
-    image(),
     postcss({
       preprocessor: (content, id) => new Promise(resolve => {
         const result = sass.renderSync({ file: id });
@@ -64,5 +63,6 @@ export default {
         ],
       ],
     }),
+    image(),
   ],
 };
