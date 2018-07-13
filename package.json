@@ -7,15 +7,18 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "npm run clean:generated_files && npm run clean:style_types",
-    "clean:generated_files": "rimraf index.js index.d.ts index.css utils Preview Model Dropzone dist",
+    "clean:generated_files": "rimraf index.js index.d.ts index.css utils Preview Model Dropzone App dist",
     "clean:style_types": "rimraf src/**/*.css.d.ts src/**/*.scss.d.ts",
     "watch": "npm run build && rerun-script",
     "build": "rollup -c",
-    "example": "npm run build && node example/server.js",
+    "example": "npm run build && npm run example-start",
+    "example-start": "node example/scripts/start.js",
     "test": "jest"
   },
   "watches": {
     "build": [
+      "src/**/*.scss",
+      "src/**/*.css",
       "src/**/*.ts",
       "src/**/*.tsx"
     ]
@@ -43,7 +46,6 @@
     ]
   },
   "peerDependencies": {
-    "@tensorflow/tfjs": "^0.11.7",
     "react": "^16.4.1"
   },
   "devDependencies": {
@@ -53,7 +55,6 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-stage-0": "^7.0.0-beta.51",
     "@babel/preset-typescript": "^7.0.0-beta.51",
-    "@tensorflow/tfjs": "^0.11.7",
     "@types/jest": "^23.1.1",
     "@types/node": "^10.3.4",
     "@types/react": "^16.4.6",

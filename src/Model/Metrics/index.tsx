@@ -11,6 +11,9 @@ interface IProps {
   images?: IImageData[];
   downloading: boolean;
   onDownload?: Function;
+  logs: {
+    [index: string]: any;
+  };
   accuracy: IDatum[];
 }
 
@@ -39,6 +42,7 @@ class Metrics extends React.Component<IProps> {
       onDownload,
       downloading,
       accuracy,
+      logs,
     } = this.props;
 
     return (
@@ -53,7 +57,9 @@ class Metrics extends React.Component<IProps> {
         />
         <div className={styles.footer}>
           <div className={styles.logs}>
-            logs
+            <pre>
+              {logs.loss.join('\n')}
+            </pre>
           </div>
           {onDownload && (
             <button

@@ -2,6 +2,19 @@
   <head>
     <title>Example using ml-classifier in the browser</title>
   </head>
+  <style type="text/css">
+    body, html {
+      font-family: -apple-system,
+        BlinkMacSystemFont,
+        Lato,
+        Droid Sans,
+        Helvetica Neue,
+        sans-serif;
+    }
+    body {
+      margin: 40px;
+    }
+  </style>
   <link media="all" rel="stylesheet" href="/index.css" />
   <body>
     <div id="root"></div>
@@ -10,7 +23,7 @@
     <script src="/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
     <script src="/index.js" type="text/javascript"></script>
     <script type="text/javascript">
-      new MLClassifierUI(document.getElementById('root'));
+      ReactDOM.render(React.createElement(MLClassifierUI), document.getElementById('root'));
     </script>
   </body>
 </html>

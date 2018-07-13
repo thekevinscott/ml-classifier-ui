@@ -13,6 +13,9 @@ interface IProps {
   onDownload?: Function;
   predict?: Function;
   evaluate: Function;
+  logs: {
+    [index: string]: any;
+  };
   accuracy: {
     training?: number;
     evaluation?: number;
@@ -30,6 +33,7 @@ class Model extends React.Component<IProps, IState> {
       downloading,
       predict,
       evaluate,
+      logs,
       accuracy: {
         training,
         evaluation,
@@ -51,6 +55,7 @@ class Model extends React.Component<IProps, IState> {
           onDownload={onDownload}
           downloading={downloading}
           accuracy={accuracy}
+          logs={logs}
         />
         {predict && (
           <Evaluator predict={predict} evaluate={evaluate} />

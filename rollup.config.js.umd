@@ -13,9 +13,19 @@ export default {
   input: './src/index.ts',
   output: {
     moduleName: 'MLClassifierUI',
+    external: [
+      'react',
+      'react-dom',
+      'tf',
+    ],
+    globals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      '@tensorflow/tfjs': 'tf',
+    },
     name: 'MLClassifierUI',
     file: './dist/index.js',
-    format: 'es',
+    format: 'umd',
   },
   plugins: [
     resolve({

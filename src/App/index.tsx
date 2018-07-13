@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Dropzone from '../Dropzone';
 import getFilesAsImages, {
   IImageData,
@@ -16,6 +15,9 @@ interface IState {
   imagesParsed: number;
   totalFiles: number;
   downloading: boolean;
+  logs: {
+    [index: string]: any;
+  };
   accuracy: {
     training?: number;
     evaluation?: number;
@@ -45,6 +47,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       downloading: false,
       imagesParsed: 0,
       totalFiles: 0,
+      logs: {},
       accuracy: {
         training: undefined,
         evaluation: undefined,
@@ -106,14 +109,6 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       imageData: [],
       labels: [],
     });
-    // const imageData = await Promise.all(images.map(async (image) => {
-    //   const data = await this.classifier.tf.fromPixels(image.image);
-    //   // const data = await this.classifier.tf.fromPixels(image.image).data();
-    //   return {
-    //     label: image.label,
-    //     data,
-    //   };
-    // }));
 
     await this.classifier.addData(imageData, labels, DataType.TRAIN);
     const {
@@ -129,13 +124,19 @@ class MLClassifierUI extends React.Component<IProps, IState> {
           });
         },
         onBatchEnd: (batch: any, logs: any) => {
+          const loss = logs.loss.toFixed(5);
           // console.log(batch, logs);
-          console.log('Loss is: ' + logs.loss.toFixed(5));
+          // console.log('Loss is: ' + logs.loss.toFixed(5));
+          this.setState({
+            logs: {
+              ...this.state.logs,
+              loss: (this.state.logs.loss || []).concat(loss),
+            }
+          });
         },
       },
     });
     const training = acc[acc.length - 1];
-    console.log('training', training);
     this.setState({
       accuracy: {
         ...this.state.accuracy,
@@ -204,6 +205,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
         )}
         {this.state.status === 'trained' && this.state.images && (
           <Model
+            logs={this.state.logs}
             images={this.state.images}
             downloading={this.state.downloading}
             onDownload={this.handleDownload}
@@ -217,7 +219,4 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 }
 
-export default (target:HTMLElement) => {
-  // target.innerHTML = 'foobar';
-  ReactDOM.render(<MLClassifierUI />, target);
-};
+export default MLClassifierUI;
