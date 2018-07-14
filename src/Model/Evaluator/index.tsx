@@ -37,7 +37,7 @@ class Evaluator extends React.Component<IProps, IState> {
       //   imagesParsed: this.state.imagesParsed + 1,
       //   totalFiles: files.length,
       // });
-      const prediction = await this.props.predict(image);
+      const prediction = await this.props.predict(image, label);
       this.setState({
         predictions: this.state.predictions.concat({
           prediction,

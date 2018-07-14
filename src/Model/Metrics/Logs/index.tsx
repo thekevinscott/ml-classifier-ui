@@ -18,6 +18,7 @@ class Logs extends React.Component<IProps, IState> {
   };
 
   handleClick = (e:any) => {
+    console.log('click!');
     this.setState({
       expanded: !this.state.expanded,
     });
@@ -34,7 +35,10 @@ class Logs extends React.Component<IProps, IState> {
           [styles.expanded]: this.state.expanded,
         })}
       >
-        <a className={styles.expand} onClick={this.handleClick}>&#9654;</a>
+        <div className={styles.expand}>
+          <a onClick={this.handleClick}>&#9654;</a>
+          <label>Loss</label>
+        </div>
         <pre>
           {logs.loss.join('\n')}
         </pre>

@@ -17,6 +17,10 @@ interface IState {
   status: string;
   images?: IImageData[];
   downloading: boolean;
+  predictions: {
+    prediction: string;
+    label: string;
+  }[];
   logs: {
     [index: string]: any;
   };
@@ -71,6 +75,17 @@ interface IProps {
   imagesFormats: string[];
 }
 
+interface ITrainResult {
+  epoch: number[];
+  history: {
+    acc: number[];
+    loss: number[];
+  };
+  model: any;
+  params: any;
+  validationData: any;
+}
+
 class MLClassifierUI extends React.Component<IProps, IState> {
   public static defaultProps: Partial<IProps> = {
     params: { },
@@ -87,6 +102,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       status: 'empty',
       images: undefined,
       downloading: false,
+      predictions: [],
       logs: {},
       accuracy: {
         training: undefined,
@@ -157,13 +173,18 @@ class MLClassifierUI extends React.Component<IProps, IState> {
           },
         },
       });
-    }).then((results: any) => {
-      // const training = acc[acc.length - 1];
+    }).then(({
+      history: {
+        acc,
+        loss,
+      },
+    }: ITrainResult) => {
+      const training = acc[acc.length - 1];
       this.setState({
         status: 'trained',
         accuracy: {
           ...this.state.accuracy,
-          // training,
+          training,
         },
       });
     });
@@ -184,22 +205,18 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     ] = await this.classifier.evaluate((this.props.params || {}).evaluate);
   }
 
-  public predict = async (image:HTMLImageElement) => {
+  public predict = async (image:HTMLImageElement, label:string) => {
     const data = this.convertImageToTensor(image);
-    const result = await this.classifier.predict(data);
-    // const {
-    //   history: {
-    //     acc,
-    //   },
-    // } = result;
+    const prediction = await this.classifier.predict(data);
 
     this.setState({
-      // accuracy: {
-      //   ...this.state.accuracy,
-      //   evaluation: acc[acc.length - 1],
-      // },
+      predictions: this.state.predictions.concat({
+        prediction,
+        label,
+      }),
     });
-    return result;
+
+    return prediction;
   };
 
   private convertImageToTensor = (image: HTMLImageElement) => {
@@ -237,6 +254,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
             downloading={this.state.downloading}
             onDownload={this.handleDownload}
             predict={this.predict}
+            predictions={this.state.predictions}
             evaluate={this.evaluate}
             accuracy={this.state.accuracy}
           />

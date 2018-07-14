@@ -8,6 +8,7 @@
     "sourceMap": true,
     "allowJs": false,
     "declaration": false,
+    "removeComments": true,
     "moduleResolution": "node",
     "rootDir": "src",
     "jsx": "react",

@@ -21,23 +21,23 @@ export default {
     ],
   },
   plugins: [
-    resolve({
-      jsnext: true,
-      main: true,
-      extensions: [ '.ts', '.tsx', '.js', '.json' ],
-      only: [
-        'ml-classifier',
-      ],
-    }),
+    // resolve({
+    //   jsnext: true,
+    //   main: true,
+    //   extensions: [ '.ts', '.tsx', '.js', '.json' ],
+    //   only: [
+    //     'ml-classifier',
+    //   ],
+    // }),
     typescript({
       typescript: require("typescript"),
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    commonjs({
-      ignoreGlobal: false,  // Default: false
-    }),
+    // commonjs({
+    //   ignoreGlobal: false,  // Default: false
+    // }),
     postcss({
       preprocessor: (content, id) => new Promise(resolve => {
         const result = sass.renderSync({ file: id });

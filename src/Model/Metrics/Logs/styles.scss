@@ -1,20 +1,54 @@
 .logs {
-  max-height: 100px;
-  overflow: hidden;
+  position: relative;
+  min-height: 40px;
+  display: flex;
   flex: 1;
+  margin-right: 20px;
 
   &.expanded {
-    max-height: 200px;
     .expand {
-      transform: "rotate(90deg)";
+      a {
+        transform: rotate(90deg);
+      }
+    }
+
+    pre {
+      display: block;
+      max-height: 100px;
+      padding: 5px 10px;
     }
   }
 
   pre {
-    display: none;
+    transition-duration: 0.5s;
+    max-height: 0px;
+    margin: 0 auto;
+    overflow-y: scroll;
+    font-size: 12px;
+    width: 100%;
+    background: rgba(255,255,255,1.0);
+    border-radius: 4px;
+    padding: 0 10px;
+    color: rgba(0,0,0,0.6);
   }
 }
 
 .expand {
-  transition-duration: 1s;
+  height: 21px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: -20px;
+  left: 0;
+
+  label {
+    font-size: 12px;
+  }
+
+  a {
+    font-size: 16px;
+    transition-duration: 0.2s;
+    display: inline-block;
+    margin-right: 5px;
+  }
 }

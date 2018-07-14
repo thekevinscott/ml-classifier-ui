@@ -10,3 +10,5 @@ scripts
 package-lock.json
 example
 *.tgz
+.storybook
+stories
