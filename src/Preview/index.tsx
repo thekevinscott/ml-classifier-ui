@@ -15,7 +15,7 @@ interface IState {
   imageIdx: number;
 }
 
-const LOOP_SPEED = 150;
+const LOOP_SPEED = 75;
 
 class Preview extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -62,7 +62,7 @@ class Preview extends React.Component<IProps, IState> {
     const className = classNames(styles.container, {
       [styles.images]: images && images.length > 0,
     });
-    console.log(image && image.image && image.image.src);
+
     return (
       <div className={className}>
         {image ? (

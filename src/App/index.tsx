@@ -8,7 +8,9 @@ import getFilesAsImages, {
 } from 'utils/getFilesAsImages';
 
 import styles from './styles.scss';
-interface IProps {
+
+interface IParams {
+  [index: string]: any;
 }
 
 interface IState {
@@ -35,7 +37,47 @@ enum DataType {
   EVAL = "eval",
 };
 
+const getImagesAsTensors = async (images:IImageData[] = []) => {
+  const data: {
+    imageData: any[];
+    labels: string[];
+  } = {
+    imageData: [],
+    labels: [],
+  };
+
+  for (let i = 0; i < images.length; i++) {
+    const {
+      image,
+      label,
+    } = images[i];
+    const pixelData = tf.fromPixels(image);
+    data.labels.push(label);
+    data.imageData.push(pixelData);
+    await tf.nextFrame();
+  }
+
+  return data;
+};
+
+interface IProps {
+  params: {
+    train?: IParams;
+    evaluate?: IParams;
+    save?: IParams;
+  };
+  getMLClassifier?: Function;
+  uploadFormat: string;
+  imagesFormats: string[];
+}
+
 class MLClassifierUI extends React.Component<IProps, IState> {
+  public static defaultProps: Partial<IProps> = {
+    params: { },
+    uploadFormat: 'nested',
+    imagesFormats: undefined,
+  };
+
   private classifier: any;
 
   constructor(props: IProps) {
@@ -55,6 +97,9 @@ class MLClassifierUI extends React.Component<IProps, IState> {
 
   componentDidMount() {
     this.classifier = new MLClassifier();
+    if (this.props.getMLClassifier) {
+      this.props.getMLClassifier(this.classifier);
+    }
   }
 
   private onDrop = (files: FileList) => {
@@ -79,69 +124,48 @@ class MLClassifierUI extends React.Component<IProps, IState> {
         images,
       });
 
-      return;
+      this.train(images);
 
-      return this.train(images);
+      return images;
     });
   }
 
   private train = async (images:IImageData[] = []) => {
+    const {
+      imageData,
+      labels,
+    } = await getImagesAsTensors(images);
+    const train = this.props.params.train || {};
     // const labels: string[] = [];
-    const {
-      imageData,
-      labels,
-    } = images.reduce(({
-      imageData,
-      labels,
-    }: {
-      imageData: any[];
-      labels: string[];
-    }, {
-      image,
-      label,
-    }) => {
-      const data = this.convertImageToTensor(image);
-      return {
-        imageData: imageData.concat(data),
-        labels: labels.concat(label),
-      };
-    }, {
-      imageData: [],
-      labels: [],
-    });
-
-    await this.classifier.addData(imageData, labels, DataType.TRAIN);
-    const {
-      history: {
-        acc,
-      },
-    } = await this.classifier.train({
-      validationSplit: 0.2,
-      callbacks: {
-        onTrainEnd: () => {
-          this.setState({
-            status: 'trained',
-          });
-        },
-        onBatchEnd: (batch: any, logs: any) => {
-          const loss = logs.loss.toFixed(5);
-          // console.log(batch, logs);
-          // console.log('Loss is: ' + logs.loss.toFixed(5));
-          this.setState({
-            logs: {
-              ...this.state.logs,
-              loss: (this.state.logs.loss || []).concat(loss),
+    return this.classifier.addData(imageData, labels, DataType.TRAIN).then(() => {
+      return this.classifier.train({
+        ...train,
+        callbacks: {
+          onBatchEnd: (batch: any, logs: any) => {
+            if (train.callbacks && train.callbacks.onBatchEnd) {
+              train.callbacks.onBatchEnd(batch, logs);
             }
-          });
+            const loss = logs.loss.toFixed(5);
+            // log(batch, logs);
+            // log('Loss is: ' + logs.loss.toFixed(5));
+            this.setState({
+              logs: {
+                ...this.state.logs,
+                loss: (this.state.logs.loss || []).concat(loss),
+              }
+            });
+          },
         },
-      },
-    });
-    const training = acc[acc.length - 1];
-    this.setState({
-      accuracy: {
-        ...this.state.accuracy,
-        training,
-      },
+      });
+    }).then((results: any) => {
+      // const training = acc[acc.length - 1];
+      this.setState({
+        status: 'trained',
+        accuracy: {
+          ...this.state.accuracy,
+          // training,
+        },
+      });
     });
   }
 
@@ -157,24 +181,25 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     const [
       one,
       accuracy,
-    ] = await this.classifier.evaluate();
-    console.log('results', one, accuracy);
+    ] = await this.classifier.evaluate((this.props.params || {}).evaluate);
   }
 
   public predict = async (image:HTMLImageElement) => {
     const data = this.convertImageToTensor(image);
-    const {
-      history: {
-        acc,
-      },
-    } = await this.classifier.predict(data);
+    const result = await this.classifier.predict(data);
+    // const {
+    //   history: {
+    //     acc,
+    //   },
+    // } = result;
 
     this.setState({
-      accuracy: {
-        ...this.state.accuracy,
-        evaluation: acc[acc.length - 1],
-      },
+      // accuracy: {
+      //   ...this.state.accuracy,
+      //   evaluation: acc[acc.length - 1],
+      // },
     });
+    return result;
   };
 
   private convertImageToTensor = (image: HTMLImageElement) => {
@@ -185,7 +210,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     this.setState({
       downloading: true,
     });
-    await this.classifier.save();
+    await this.classifier.save((this.props.params || {}).save);
     this.setState({
       downloading: false,
     });

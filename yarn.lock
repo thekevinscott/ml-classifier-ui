@@ -836,7 +836,7 @@
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-layers/-/tfjs-layers-0.6.7.tgz#aa4f994c4104a8cf3f93b5e13ab051685c092c80"
 
-"@tensorflow/tfjs@^0.11.7":
+"@tensorflow/tfjs@0.11.7":
   version "0.11.7"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs/-/tfjs-0.11.7.tgz#5b5fe7b17bca2d2088fdd01aea0660517364b752"
   dependencies:
@@ -3779,9 +3779,9 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-ml-classifier@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.3.3.tgz#66ab4be099a8b7b4dec58a4e6af34cfb897f4008"
+ml-classifier@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.3.5.tgz#5e34f72fe4cddc5c5d2a6250fe6aa0112b69b88c"
 
 ms@2.0.0:
   version "2.0.0"
@@ -5469,9 +5469,9 @@ type-is@~1.6.15, type-is@~1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
-typescript@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+typescript@3.0.0-rc:
+  version "3.0.0-rc"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.0-rc.tgz#13553808426d393d3f92c054f4fa6f24589549c1"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"

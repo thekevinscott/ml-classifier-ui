@@ -47,6 +47,7 @@
     ]
   },
   "peerDependencies": {
+    "@tensorflow/tfjs": "0.11.7",
     "react": "^16.4.1"
   },
   "devDependencies": {
@@ -56,7 +57,7 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-stage-0": "^7.0.0-beta.51",
     "@babel/preset-typescript": "^7.0.0-beta.51",
-    "@tensorflow/tfjs": "^0.11.7",
+    "@tensorflow/tfjs": "0.11.7",
     "@types/jest": "^23.1.1",
     "@types/node": "^10.3.4",
     "@types/react": "^16.4.6",
@@ -87,10 +88,10 @@
     "ts-loader": "^2.3.7",
     "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.10.0",
-    "typescript": "^2.9.2",
+    "typescript": "3.0.0-rc",
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
-    "ml-classifier": "^0.3.3"
+    "ml-classifier": "^0.3.5"
   }
 }

@@ -1,0 +1,20 @@
+.logs {
+  max-height: 100px;
+  overflow: hidden;
+  flex: 1;
+
+  &.expanded {
+    max-height: 200px;
+    .expand {
+      transform: "rotate(90deg)";
+    }
+  }
+
+  pre {
+    display: none;
+  }
+}
+
+.expand {
+  transition-duration: 1s;
+}

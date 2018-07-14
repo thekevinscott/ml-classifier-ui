@@ -6,6 +6,7 @@ import Info, {
 import {
   IImageData,
 } from 'utils/getFilesAsImages';
+import Logs from './Logs';
 
 interface IProps {
   images?: IImageData[];
@@ -56,11 +57,7 @@ class Metrics extends React.Component<IProps> {
           data={accuracy}
         />
         <div className={styles.footer}>
-          <div className={styles.logs}>
-            <pre>
-              {logs.loss.join('\n')}
-            </pre>
-          </div>
+          <Logs logs={logs} />
           {onDownload && (
             <button
               disabled={downloading}
