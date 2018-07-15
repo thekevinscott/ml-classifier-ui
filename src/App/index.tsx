@@ -4,8 +4,19 @@ import * as tf from '@tensorflow/tfjs';
 import Dropzone from '../Dropzone';
 import getFilesAsImages, {
   IImageData,
-  IFileData,
+  // IFileData,
 } from 'utils/getFilesAsImages';
+
+import Model from '../Model';
+import Preview from '../Preview';
+
+import MLClassifier, {
+  // DataType,
+} from 'ml-classifier';
+enum DataType {
+  TRAIN = "train",
+  EVAL = "eval",
+};
 
 import styles from './styles.scss';
 
@@ -29,17 +40,6 @@ interface IState {
     evaluation?: number;
   };
 }
-
-import Model from '../Model';
-import Preview from '../Preview';
-
-import MLClassifier, {
-  // DataType,
-} from 'ml-classifier';
-enum DataType {
-  TRAIN = "train",
-  EVAL = "eval",
-};
 
 const getImagesAsTensors = async (images:IImageData[] = []) => {
   const data: {
@@ -129,12 +129,14 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       status: 'parsing'
     });
 
-    return getFilesAsImages(files, (image: HTMLImageElement, label: string, files: IFileData[]) => {
-      // this.setState({
-      //   imagesParsed: this.state.imagesParsed + 1,
-      //   totalFiles: files.length,
-      // });
-    }).then(images => {
+    // const callback = (image: HTMLImageElement, label: string, files: IFileData[]) => {
+    //   // this.setState({
+    //   //   imagesParsed: this.state.imagesParsed + 1,
+    //   //   totalFiles: files.length,
+    //   // });
+    // };
+
+    return getFilesAsImages(files).then(images => {
       this.setState({
         status: 'training',
         images,
@@ -173,12 +175,13 @@ class MLClassifierUI extends React.Component<IProps, IState> {
           },
         },
       });
-    }).then(({
-      history: {
-        acc,
-        loss,
-      },
-    }: ITrainResult) => {
+    }).then((result: ITrainResult) => {
+      const {
+        history: {
+          acc,
+          // loss,
+        },
+      } = result;
       const training = acc[acc.length - 1];
       this.setState({
         status: 'trained',

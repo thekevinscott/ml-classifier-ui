@@ -58,10 +58,10 @@ class Model extends React.Component<IProps, IState> {
     const evaluation = getEvaluation(predictions);
 
     const accuracy: IDatum[] = [{
-      data: training ? `${training * 100}%` : '--',
+      data: training ? `${Math.round(training * 100)}%` : '--',
       label: 'Training',
     }, {
-      data: evaluation ? `${evaluation * 100}%` : '--',
+      data: evaluation ? `${Math.round(evaluation * 100)}%` : '--',
       label: 'Evaluation',
     }];
 

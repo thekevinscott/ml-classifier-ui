@@ -45,7 +45,7 @@ class Evaluator extends React.Component<IProps, IState> {
           image,
         }),
       });
-    }).then(images => {
+    // }).then(images => {
       // this.props.evaluate(images);
     });
     /*
