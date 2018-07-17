@@ -6230,9 +6230,9 @@ mixin-object@^2.0.1:
   dependencies:
     minimist "0.0.8"
 
-ml-classifier@^0.3.9:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.3.9.tgz#037e2efcdd017072e53ce77d7c9c6995e1f31c23"
+ml-classifier@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.3.11.tgz#14dfd20d5e824397f8eebd4e8d900017c712e8f7"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
