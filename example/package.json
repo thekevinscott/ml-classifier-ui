@@ -1,8 +1,8 @@
 {
   "name": "ml-classifier-ui-example",
   "version": "0.1.0",
-  "homepage": "https://thekevinscott.github.io/ml-classifier-ui/",
   "private": true,
+  "homepage": "https://thekevinscott.github.io/ml-classifier-ui/",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-jest": "^22.1.0",
