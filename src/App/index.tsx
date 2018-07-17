@@ -13,7 +13,7 @@ import {
   ITrainResult,
 } from '../types';
 
-import Model from '../Model';
+import Model, { ImageError } from '../Model';
 import Preview from '../Preview';
 
 import MLClassifier from 'ml-classifier';
@@ -31,9 +31,11 @@ interface IParams {
 interface IState {
   status: string;
   images?: string[];
+  files: any[];
   labels: string[];
   downloading: boolean;
   predictions: {
+    src: string;
     prediction: string;
     label: string;
   }[];
@@ -44,28 +46,8 @@ interface IState {
     training?: number;
     evaluation?: number;
   };
+  errors?: ImageError[];
 }
-
-// const prepareImages = async (images:IImageData[] = []) => {
-//   const data: {
-//     imageData: any[];
-//     labels: string[];
-//   } = {
-//     imageData: [],
-//     labels: [],
-//   };
-
-//   for (let i = 0; i < images.length; i++) {
-//     const {
-//       image,
-//       label,
-//     } = images[i];
-//     data.labels.push(label);
-//     data.imageData.push(image);
-//   }
-
-//   return data;
-// };
 
 interface IProps {
   params: {
@@ -78,17 +60,6 @@ interface IProps {
   uploadFormat: string;
   imagesFormats: string[];
 }
-
-// const transformIntArrayToImage = async(image: IImageData) => {
-//   const canvas = document.createElement("canvas");
-//   if (!canvas) {
-//     throw new Error('No canvas was found. Are you in the browser?');
-//   }
-
-//   const data = canvas.toDataURL('image/png');
-//   const img = await loadImage(data);
-//   return img;
-// };
 
 class MLClassifierUI extends React.Component<IProps, IState> {
   public static defaultProps: Partial<IProps> = {
@@ -103,6 +74,8 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      errors: [],
+      files: [],
       status: 'empty',
       images: undefined,
       downloading: false,
@@ -117,10 +90,10 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    console.log('yo');
     this.classifier = new MLClassifier({
       onAddDataStart: this.onAddDataStart,
       onAddDataComplete: this.onAddDataComplete,
+      onPredictComplete: this.onPredictComplete,
     });
 
     if (this.props.getMLClassifier) {
@@ -132,14 +105,9 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     this.setState({
       status: 'uploading',
     });
-
-//     if (this.props.onBegin) {
-//       this.props.onBegin();
-//     }
   }
 
   private onAddDataStart = async (imageSrcs: string[], _labels: any, dataType: string) => {
-    console.log('added data');
     this.setState({
       status: 'parsing'
     });
@@ -156,32 +124,36 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     }
   }
 
-  private onParseFiles = async (files: FileList) => {
-    console.log('incoming files, should turn into a flat array of src and label');
-    const imageFiles: IFileData[] = await getFilesAsImageArray(files);
+  private onParseFiles = async (origFiles: FileList) => {
+    const imageFiles: IFileData[] = await getFilesAsImageArray(origFiles);
 
     const {
       images,
       labels,
+      files,
     } = await splitImagesFromLabels(imageFiles);
+
+    this.setState({
+      files,
+    });
+
     return this.classifier.addData(images, labels, 'train');
   }
 
-  private onAddDataComplete = async (imageSrcs: string[], labels: string[], dataType: string) => {
-    console.log('data has all been added');
+  private onAddDataComplete = async (imageSrcs: string[], labels: string[], dataType: string, errors?: ImageError[]) => {
     if (dataType === 'train') {
-      // let images: Array<HTMLImageElement> = [];
-      // for (let i = 0; i < imageData.length; i++) {
-      //   const src = imageSrcs[i];
-      //   const img = await loadImage(src);
-      //   // const data = await transformIntArrayToImage(src);
-      //   images.push(img);
-      // }
       this.setState({
         status: 'training',
         images: imageSrcs,
         labels,
+        errors: (errors || []).map((error: ImageError) => {
+          return {
+            ...error,
+            file: this.state.files[error.index],
+          };
+        }),
       });
+
       const train = this.props.params.train || {};
       const result: ITrainResult = await this.classifier.train({
         ...train,
@@ -221,32 +193,27 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     }
   }
 
-  // public evaluate = async (images:IImageData[] = []) => {
-  //   const labels: string[] = [];
-  //   const imageData = images.map((image) => {
-  //     labels.push(image.label);
-  //     return image.image;
-  //   });
-
-  //   await this.classifier.addData(imageData, labels, 'eval');
-  //   const [
-  //     one,
-  //     accuracy,
-  //   ] = await this.classifier.evaluate((this.props.params || {}).evaluate);
-  // }
-
-  public predict = async (image:HTMLImageElement, label:string) => {
-    console.log('predict', image, label);
-    const prediction = await this.classifier.predict(image);
+  public onPredictComplete = async (src: string, label: string, pred: string | number) => {
+    const prediction = `${pred}`;
 
     this.setState({
       predictions: this.state.predictions.concat({
+        src,
         prediction,
         label,
       }),
     });
+  }
 
-    return prediction;
+  public predict = async (imageFiles: IFileData[]) => {
+    for (let i = 0; i < imageFiles.length; i++) {
+      const {
+        src,
+        label,
+      } = imageFiles[i];
+
+      await this.classifier.predict(src, label);
+    }
   };
 
   handleDownload = async () => {
@@ -282,6 +249,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
             predict={this.predict}
             predictions={this.state.predictions}
             accuracy={this.state.accuracy}
+            errors={this.state.errors}
           />
         )}
       </div>

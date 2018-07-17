@@ -7,11 +7,18 @@ import Info, {
 //   IImageData,
 // } from 'utils/getFilesAsImages';
 import Logs from './Logs';
+export interface ImageError {
+  image: any;
+  error: Error;
+  file?: any;
+  index: number;
+}
 
 interface IProps {
   labels?: string[];
   downloading: boolean;
   onDownload?: Function;
+  errors?: ImageError[];
   logs: {
     [index: string]: any;
   };
@@ -36,6 +43,12 @@ const getData = (labels: string[] = []) => {
   });
 };
 
+const getErrors = (errors: ImageError[] = []) => errors.map(({ file }, key) => (
+  <p key={key} className={styles.error}>
+    Error loading image: {`${file.path}/${file.file.name}`}
+  </p>
+));
+
 class Metrics extends React.Component<IProps> {
   render() {
     const {
@@ -44,9 +57,8 @@ class Metrics extends React.Component<IProps> {
       downloading,
       accuracy,
       logs,
+      errors,
     } = this.props;
-
-    console.log('labels', labels);
 
     return (
       <div className={styles.container}>
@@ -54,6 +66,9 @@ class Metrics extends React.Component<IProps> {
           title="Data"
           data={getData(labels)}
         />
+        <div className={styles.errors}>
+          {errors && getErrors(errors)}
+        </div>
         <Info
           title="Accuracy"
           data={accuracy}

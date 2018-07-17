@@ -2,7 +2,13 @@ import * as React from 'react';
 import styles from './styles.scss';
 // const styles = require('./styles.scss');
 import Evaluator from './Evaluator';
-import Metrics, { IDatum } from './Metrics';
+import Metrics, {
+  IDatum,
+  ImageError,
+} from './Metrics';
+import {
+  IPrediction,
+} from './Evaluator/Predictions/Prediction';
 // import {
 //   IImageData,
 // } from '../utils/getFilesAsImages';
@@ -12,11 +18,8 @@ interface IProps {
   downloading: boolean;
   onDownload?: Function;
   predict?: Function;
-  predictions: {
-    prediction: string;
-    label: string;
-  }[];
-  // evaluate: Function;
+  predictions: IPrediction[];
+  errors?: ImageError[];
   logs: {
     [index: string]: any;
   };
@@ -52,6 +55,7 @@ class Model extends React.Component<IProps, IState> {
       accuracy: {
         training,
       },
+      errors,
     } = this.props;
 
     const evaluation = getEvaluation(predictions);
@@ -72,9 +76,13 @@ class Model extends React.Component<IProps, IState> {
           downloading={downloading}
           accuracy={accuracy}
           logs={logs}
+          errors={errors}
         />
         {predict && (
-          <Evaluator predict={predict} />
+          <Evaluator
+            predict={predict}
+            predictions={predictions}
+          />
         )}
       </div>
     );
@@ -82,3 +90,5 @@ class Model extends React.Component<IProps, IState> {
 }
 
 export default Model;
+
+export { ImageError } from './Metrics';

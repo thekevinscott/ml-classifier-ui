@@ -1,5 +1,6 @@
 export interface IFileData {
   label: string;
+  file: any;
   src: string;
 };
 
@@ -21,44 +22,16 @@ export const getFilesAsImageArray = async (files: FileList): Promise<IFileData[]
   for (let i = 0; i < classes.length; i++) {
     const label = classes[i];
     for (let j = 0; j < files[label].length; j++) {
-      const image = files[label][j];
+      const file = files[label][j];
       images.push({
         label,
-        src: image.src,
+        src: file.src,
+        file,
       });
     }
   }
   return images;
 };
-
-// const getFilesAsImages = async (files: FileList, callback?: Function): Promise<IImageData[]> => {
-//   const filesArr = await getFilesAsImageArray(files);
-//   const promisedImages = await Promise.all(filesArr.map(async (file: IFileData): Promise<IImageData | null> => {
-//     try {
-//       const image = file.src;
-//       // const image = await loadImage(file.src);
-//       if (callback) {
-//         callback(image, file.label, filesArr);
-//       }
-//       return {
-//         label: file.label,
-//         image,
-//       };
-//     } catch(err) {
-//       console.error(err);
-//       return null;
-//     }
-//   }));
-
-//   let legitFiles: IImageData[] = [];
-//   for (let i = 0; i < promisedImages.length; i++) {
-//     const promisedImage = promisedImages[i];
-//     if (promisedImage !== null) {
-//       legitFiles.push(promisedImage);
-//     }
-//   }
-//   return legitFiles;
-// };
 
 export default getFilesAsImageArray;
 
@@ -66,16 +39,20 @@ export const splitImagesFromLabels = async (images: IFileData[]) => {
   const origData: {
     images: string[];
     labels: string[];
+    files: any[];
   } = {
     images: [],
     labels: [],
+    files: [],
   };
 
   return images.reduce((data, {
     src,
     label,
+    file,
   }: IFileData) => ({
     images: data.images.concat(src),
     labels: data.labels.concat(label),
+    files: data.files.concat(file),
   }), origData);
 }

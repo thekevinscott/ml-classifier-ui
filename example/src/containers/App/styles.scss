@@ -4,3 +4,25 @@
   width: 300px;
   display: flex;
 }
+
+.classifierContainer {
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    flex: 1;
+  }
+
+  .imgContainer {
+    max-height: 400px;
+    border-radius: 5px;
+    // border: 1px solid rgba(0,0,0,0.1);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

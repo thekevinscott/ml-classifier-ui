@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export interface IImage {
-  imageSrc: string;
+  src: string;
   label: string;
 }
 
@@ -82,15 +82,52 @@ class Search extends React.Component<IProps, IState> {
     this.props.train(images, evalImages);
   }
 
-  public componentDidMount() {
-    this.props.train([{
-      label: 'dog',
-      imageSrc: 'https://i.imgur.com/ALmkDwN.jpg',
-    }, {
-      label: 'cat',
-      imageSrc: 'https://i.imgur.com/40QdFBf.jpg',
-    }], []);
-  }
+  // public componentDidMount() {
+  //   this.props.train([{
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/40QdFBf.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://imgur.com/cnAtiVO.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/6Z4v0Xy.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/5HvlY3r.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/aHOLAm4.jpg',
+  //   }, {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/ALmkDwN.jpg',
+  //   }, {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/JpGAInT.jpg',
+  //   }, {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/vdrzl74.jpg',
+  //   }, {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/xFczRzG.jpg',
+  //   }, {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/nBpidmQ.jpg',
+  //   }], [
+
+
+
+  //   {
+  //     label: 'dog',
+  //     src: 'https://i.imgur.com/nZg4Nn8.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/LyH5RK2.jpg',
+  //   }, {
+  //     label: 'cat',
+  //     src: 'https://i.imgur.com/MNHiUjf.jpg',
+  //   }]);
+  // }
 
   public handleRemoveTopic = (idx: number) => (e:React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -181,7 +218,7 @@ const transformImages = (
   end?: number
 ) => {
   const originalData: Array<{
-    imageSrc: string;
+    src: string;
     label: string;
   }> = [];
 
@@ -190,7 +227,7 @@ const transformImages = (
       const image = searches[label].filter(({ id }: IImgurImage) => id === imageId)[0];
 
       return {
-        imageSrc: image.link,
+        src: image.link,
         label,
       };
     }));

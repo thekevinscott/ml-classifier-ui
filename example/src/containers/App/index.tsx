@@ -5,26 +5,9 @@ import Search, {
   IImage,
 } from '../Search';
 
-// const loadImage = async (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
-//   const image = new Image();
-//   image.crossOrigin = 'anonymous';
-//   image.src = src;
-//   image.onload = () => resolve(image);
-//   image.onerror = (err) => reject(err);
-// });
+const CORS_BYPASS = 'https://fast-cove-30289.herokuapp.com/';
 
-// const transformImageToIntArray = (image: HTMLImageElement) => {
-//   const canvas = document.createElement('canvas');
-//   const context = canvas.getContext('2d');
-//   if (context) {
-//     context.drawImage(image, 0, 0);
-//     // const data = context.getImageData(0, 0, image.width, image.height)
-//     const data = context.getImageData(0, 0, 224, 224);
-//     return data;
-//   }
-
-//   return null;
-// };
+const SHOW_HELP = true;
 
 const splitImagesFromLabels = async (images: IImage[]) => {
   const origData: {
@@ -36,47 +19,21 @@ const splitImagesFromLabels = async (images: IImage[]) => {
   };
 
   return images.reduce((data, image: IImage) => ({
-    images: data.images.concat(image.imageSrc),
+    images: data.images.concat(`${CORS_BYPASS}${image.src}`),
+    // images: data.images.concat(`${image.src}`),
     labels: data.labels.concat(image.label),
   }), origData);
 }
 
-// DEPRECATED
-// const getImagesAsDataAndLabels = async (images: IImage[]) => {
-//   const imageData: any[] = [];
-//   const labels: string[] = [];
-
-//   for (let i = 0; i < images.length; i++) {
-//     const {
-//       image,
-//       label,
-//     } = images[i];
-//     let img;
-//     if (image instanceof HTMLImageElement) {
-//       img = await loadImage(image.src);
-//     } else {
-//       img = await loadImage(image);
-//     }
-//     const data = transformImageToIntArray(img);
-//     // if (data && data.data) {
-//     imageData.push(data);
-//     labels.push(label);
-//     // }
-//   }
-
-//   return {
-//     imageData,
-//     labels,
-//   };
-// };
-
 interface IState {
   training: boolean;
+  evalImages?: IImage[];
 }
 
 class App extends React.Component {
   public state: IState = {
     training: false,
+    evalImages: undefined,
   };
 
   private classifier:any;
@@ -91,43 +48,73 @@ class App extends React.Component {
     });
   }
 
-  public train = async (trainImages: IImage[], evalImages: IImage[]) => {
+  public train = async (trainImages: IImage[], evalImages?: IImage[]) => {
     this.onBeginTraining();
     const {
       images,
       labels,
     } = await splitImagesFromLabels(trainImages);
 
-    console.log('add data to classifier', images, labels);
-    await this.classifier.addData(images, labels, 'train');
-    // await this.classifier.train();
-    // const {
-    //   imageData: evalImageData,
-    //   labels: evalLabels,
-    // } = await getImagesAsDataAndLabels(evalImages);
+    this.setState({
+      evalImages,
+    });
 
-    // return await this.classifier.addData(evalImageData, evalLabels, 'eval');
+    await this.classifier.addData(images, labels, 'train');
+  }
+
+  public onTrainComplete = async () => {
+    if (this.state.evalImages && this.state.evalImages.length) {
+      const {
+        images,
+        labels,
+      } = await splitImagesFromLabels(this.state.evalImages);
+
+      for (let i = 0; i < images.length; i++) {
+        const src = images[i];
+        const label = labels[i];
+
+        this.classifier.predict(src, label);
+
+        // const prediction = await this.predictSingleImage(src, label);
+        // callback({
+        //   src,
+        //   label,
+        //   prediction,
+        // });
+      }
+
+      // return await this.classifier.addData(images, labels, 'eval');
+    }
   }
 
   public render() {
     return (
       <React.Fragment>
-        <div className={styles.info}>
-          <p>Drag and drop some labeled images below to test it out.</p>
-          <p>Organize your images into folders, where the folders' names are the desired labels.</p>
+        <div className={styles.classifierContainer}>
+          <div className={styles.app}>
+            <MLClassifierUI
+              getMLClassifier={this.getMLClassifier}
+              onAddDataStart={this.onBeginTraining}
+              onTrainComplete={this.onTrainComplete}
+            />
+          </div>
+          {SHOW_HELP && (
+            <div className={styles.info}>
+              <h2>Instructions</h2>
+              <p>Drag and drop some labeled images below to begin training your classifier.</p>
+              <p><em>Organize your images into folders, where the folders' names are the desired labels.</em></p>
+              <div className={styles.imgContainer}>
+                <img src="/example.gif" />
+              </div>
+            </div>
+          )}
         </div>
-        <div className={styles.app}>
-          <MLClassifierUI
-            getMLClassifier={this.getMLClassifier}
-            onAddDataStart={this.onBeginTraining}
-          />
-        </div>
-        {this.state.training === false && (
+        {SHOW_HELP && this.state.training === false && (
           <React.Fragment>
             <hr />
             <div className={styles.info}>
-              <p>Don't have any images handy?</p>
-              <p>Search below for some images. Select up to 10 that match your query.</p>
+              <p>Don't have any images handy? Search below for some images. Select up to 10 that match your query.</p>
+              <p><strong>Note</strong> This can be a little buggy at the moment due to CORS issues. Working on a fix!</p>
             </div>
             <Search
               train={this.train}

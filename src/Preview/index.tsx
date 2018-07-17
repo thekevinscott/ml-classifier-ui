@@ -2,6 +2,9 @@ import * as React from 'react';
 import classNames from 'utils/classNames';
 import styles from './styles.scss';
 import Loading from '../Loading';
+// import {
+//   loadImage,
+// } from 'utils/getFilesAsImages';
 // const styles = require('./styles.scss');
 // import {
 //   IImageData,
@@ -13,6 +16,9 @@ interface IProps {
 
 interface IState {
   imageIdx: number;
+  // images: {
+  //   [index:string]: HTMLImageElement | null;
+  // };
 }
 
 const LOOP_SPEED = 75;
@@ -23,6 +29,7 @@ class Preview extends React.Component<IProps, IState> {
 
     this.state = {
       imageIdx: 0,
+      // images: { },
     };
   }
 
@@ -31,6 +38,32 @@ class Preview extends React.Component<IProps, IState> {
   componentWillMount() {
     this.loopImages();
   }
+
+  // componentWillReceiveProps(nextProps: IProps) {
+  //   if ((this.props.images || []).length !== (nextProps.images || []).length) {
+  //     (nextProps.images || []).map((src: string) => {
+  //       if (this.state.images[src] === undefined) {
+  //         console.log('load image', src);
+
+  //         this.setState({
+  //           images: {
+  //             ...this.state.images,
+  //             [src]: null,
+  //           },
+  //         });
+
+  //         loadImage(src).then(image => {
+  //           this.setState({
+  //             images: {
+  //               ...this.state.images,
+  //               [src]: image,
+  //             },
+  //           });
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   componentWillUnmount() {
     if (this.timeout) {
@@ -53,6 +86,7 @@ class Preview extends React.Component<IProps, IState> {
   }
 
   render() {
+    // const images = Object.values(this.state.images);
     const {
       images,
     } = this.props;
