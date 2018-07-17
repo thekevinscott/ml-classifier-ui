@@ -104,7 +104,7 @@ class App extends React.Component {
               <p>Drag and drop some labeled images below to begin training your classifier.</p>
               <p><em>Organize your images into folders, where the folders' names are the desired labels.</em></p>
               <div className={styles.imgContainer}>
-                <img src="/example.gif" />
+                <img src="https://github.com/thekevinscott/ml-classifier-ui/raw/master/example/public/example.gif" />
               </div>
             </div>
           )}
@@ -114,7 +114,7 @@ class App extends React.Component {
             <hr />
             <div className={styles.info}>
               <p>Don't have any images handy? Search below for some images. Select up to 10 that match your query.</p>
-              <p><strong>Note</strong> This can be a little buggy at the moment due to CORS issues. Working on a fix!</p>
+              <p><em><strong>Note</strong> This can be a little buggy at the moment due to CORS issues. Working on making it better!</em></p>
             </div>
             <Search
               train={this.train}
