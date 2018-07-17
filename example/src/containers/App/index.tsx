@@ -104,7 +104,9 @@ class App extends React.Component {
               <p>Drag and drop some labeled images below to begin training your classifier.</p>
               <p><em>Organize your images into folders, where the folders' names are the desired labels.</em></p>
               <div className={styles.imgContainer}>
-                <img src="https://github.com/thekevinscott/ml-classifier-ui/raw/master/example/public/example-600.gif" />
+                <a href="https://github.com/thekevinscott/ml-classifier-ui/raw/master/example/public/example.gif">
+                  <img src="https://github.com/thekevinscott/ml-classifier-ui/raw/master/example/public/example-600.gif" />
+                </a>
               </div>
             </div>
           )}
