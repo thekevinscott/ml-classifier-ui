@@ -1,5 +1,6 @@
 {
   "name": "ml-classifier-ui",
+  "homepage": "https://thekevinscott.github.io/ml-classifier-ui/",
   "repository": "https://github.com/thekevinscott/ml-classifier-ui",
   "version": "0.3.9",
   "description": "A package for creating image-based machine learning models",
@@ -11,10 +12,11 @@
     "clean:style_types": "rimraf src/**/*.css.d.ts src/**/*.scss.d.ts",
     "watch": "npm run build && rerun-script",
     "build": "rollup -c",
+    "deploy:example": "gh-pages -d example/build",
     "example": "concurrently \"npm run watch\" \"npm run example-start\"",
     "example-start": "node example/scripts/start.js",
     "example-build": "node example/scripts/build.js",
-    "deploy-example": "gh-pages -d example/build",
+    "example-deploy": "npm run example-build && npm run deploy:example",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
