@@ -55,10 +55,23 @@ interface IProps {
     evaluate?: IParams;
     save?: IParams;
   };
-  onAddDataStart?: Function;
   getMLClassifier?: Function;
   uploadFormat: string;
   imagesFormats: string[];
+  onLoadStart?: Function;
+  onLoadComplete?: Function;
+  onAddDataStart?: Function;
+  onAddDataComplete?: Function;
+  onClearDataStart?: Function;
+  onClearDataComplete?: Function;
+  onTrainStart?: Function;
+  onTrainComplete?: Function;
+  onPredictComplete?: Function;
+  onPredictStart?: Function;
+  onEvaluateStart?: Function;
+  onEvaluateComplete?: Function;
+  onSaveStart?: Function;
+  onSaveComplete?: Function;
 }
 
 class MLClassifierUI extends React.Component<IProps, IState> {
@@ -91,9 +104,20 @@ class MLClassifierUI extends React.Component<IProps, IState> {
 
   componentDidMount() {
     this.classifier = new MLClassifier({
+      onLoadStart: this.props.onLoadStart,
+      onLoadComplete: this.props.onLoadComplete,
       onAddDataStart: this.onAddDataStart,
       onAddDataComplete: this.onAddDataComplete,
+      onClearDataStart: this.props.onClearDataStart,
+      onClearDataComplete: this.props.onClearDataComplete,
+      onTrainStart: this.props.onTrainStart,
+      onTrainComplete: this.props.onTrainComplete,
+      onPredictStart: this.props.onPredictStart,
       onPredictComplete: this.onPredictComplete,
+      onEvaluateStart: this.props.onEvaluateStart,
+      onEvaluateComplete: this.props.onEvaluateComplete,
+      onSaveStart: this.props.onSaveStart,
+      onSaveComplete: this.props.onSaveComplete,
     });
 
     if (this.props.getMLClassifier) {
@@ -141,6 +165,9 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   private onAddDataComplete = async (imageSrcs: string[], labels: string[], dataType: string, errors?: ImageError[]) => {
+    if (this.props.onAddDataComplete) {
+      this.props.onAddDataComplete(imageSrcs, labels, dataType, errors);
+    }
     if (dataType === 'train') {
       this.setState({
         status: 'training',
@@ -194,6 +221,9 @@ class MLClassifierUI extends React.Component<IProps, IState> {
   }
 
   public onPredictComplete = async (src: string, label: string, pred: string | number) => {
+    if (this.props.onPredictComplete) {
+      this.props.onPredictComplete(src, label, pred);
+    }
     const prediction = `${pred}`;
 
     this.setState({
