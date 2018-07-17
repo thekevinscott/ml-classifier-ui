@@ -40,6 +40,7 @@ ReactDOM.render(<MLClassifierUI />, document.getElementById('root'));
 * **methodParams** (`Object`) *Optional* - A set of parameters that will be passed in calls to `ml-classifier`'s methods. See below for more information.
 * **uploadFormat** (`string`) *Optional* - A string denoting what type of upload format to accept. Formats can be `flat` or `nested`. See below note for more information on that. If omitted, all formats are accepted.
 * **imageFormats** (`string[]`) *Optional* - An array of file extensions to accept. By default, all valid images are accepted. Images are transformed via the native `Image` tag in the browser, so if the browser can display the image, it'll be processed.
+* **onBegin** (`Function`) *Optional* - A callback function called when images are dropped and training begins.
 
 ### `getMLClassifier`
 

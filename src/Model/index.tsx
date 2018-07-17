@@ -3,12 +3,12 @@ import styles from './styles.scss';
 // const styles = require('./styles.scss');
 import Evaluator from './Evaluator';
 import Metrics, { IDatum } from './Metrics';
-import {
-  IImageData,
-} from '../utils/getFilesAsImages';
+// import {
+//   IImageData,
+// } from '../utils/getFilesAsImages';
 
 interface IProps {
-  images: IImageData[];
+  labels: string[];
   downloading: boolean;
   onDownload?: Function;
   predict?: Function;
@@ -16,7 +16,7 @@ interface IProps {
     prediction: string;
     label: string;
   }[];
-  evaluate: Function;
+  // evaluate: Function;
   logs: {
     [index: string]: any;
   };
@@ -43,11 +43,10 @@ const getEvaluation = (predictions: any[]) => {
 class Model extends React.Component<IProps, IState> {
   render() {
     const {
-      images,
+      labels,
       onDownload,
       downloading,
       predict,
-      evaluate,
       predictions,
       logs,
       accuracy: {
@@ -68,14 +67,14 @@ class Model extends React.Component<IProps, IState> {
     return (
       <div className={styles.container}>
         <Metrics
-          images={images}
+          labels={labels}
           onDownload={onDownload}
           downloading={downloading}
           accuracy={accuracy}
           logs={logs}
         />
         {predict && (
-          <Evaluator predict={predict} evaluate={evaluate} />
+          <Evaluator predict={predict} />
         )}
       </div>
     );

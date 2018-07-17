@@ -3,13 +3,13 @@ import styles from './styles.scss';
 import Info, {
   IDatum,
 } from './Info';
-import {
-  IImageData,
-} from 'utils/getFilesAsImages';
+// import {
+//   IImageData,
+// } from 'utils/getFilesAsImages';
 import Logs from './Logs';
 
 interface IProps {
-  images?: IImageData[];
+  labels?: string[];
   downloading: boolean;
   onDownload?: Function;
   logs: {
@@ -18,20 +18,20 @@ interface IProps {
   accuracy: IDatum[];
 }
 
-interface IData {
-  label: string;
-}
+// interface IData {
+//   label: string;
+// }
 
-const getData = (images: IData[] = []) => {
-  const numOfImages = images.reduce((obj, image) => ({
+const getData = (labels: string[] = []) => {
+  const numOfLabels = labels.reduce((obj, label) => ({
     ...obj,
-    [image.label]: (obj[image.label] || 0) + 1,
+    [label]: (obj[label] || 0) + 1,
   }), {});
 
-  return Object.keys(numOfImages).map((label) => {
+  return Object.keys(numOfLabels).map((label) => {
     return {
       label,
-      data: numOfImages[label],
+      data: numOfLabels[label],
     };
   });
 };
@@ -39,18 +39,20 @@ const getData = (images: IData[] = []) => {
 class Metrics extends React.Component<IProps> {
   render() {
     const {
-      images,
+      labels,
       onDownload,
       downloading,
       accuracy,
       logs,
     } = this.props;
 
+    console.log('labels', labels);
+
     return (
       <div className={styles.container}>
         <Info
           title="Data"
-          data={getData(images)}
+          data={getData(labels)}
         />
         <Info
           title="Accuracy"

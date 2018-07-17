@@ -4,7 +4,7 @@ import styles from './styles.scss';
 export interface IPrediction {
   prediction: string;
   label: string;
-  image: HTMLImageElement;
+  src: string;
 };
 
 interface IProps {
@@ -13,16 +13,16 @@ interface IProps {
 
 const Prediction: React.SFC<IProps> = ({
   prediction: {
-    image,
+    src,
     prediction,
     label,
   },
 }) => (
   <li>
-    <img src={image.src} />
+    <img src={src} />
     <ul className={styles.info}>
       <li>Prediction: {prediction}</li>
-      <li>Label: {label}</li>
+      <li className={styles.label}>Label: {label}</li>
     </ul>
   </li>
 );

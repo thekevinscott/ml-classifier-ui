@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Dropzone from '../../Dropzone';
-import getFilesAsImages, {
+import {
   IFileData,
+  getFilesAsImageArray,
 } from '../../utils/getFilesAsImages';
 import Predictions from './Predictions';
 import {
@@ -10,7 +11,6 @@ import {
 
 interface IProps {
   predict: Function;
-  evaluate: Function;
 }
 
 interface IState {
@@ -32,30 +32,22 @@ class Evaluator extends React.Component<IProps, IState> {
 
   private onParseFiles = async (files: FileList) => {
 
-    return getFilesAsImages(files, async (image: HTMLImageElement, label: string, files: IFileData[]) => {
-      // this.setState({
-      //   imagesParsed: this.state.imagesParsed + 1,
-      //   totalFiles: files.length,
-      // });
-      const prediction = await this.props.predict(image, label);
+    const imageFiles: IFileData[] = await getFilesAsImageArray(files);
+    for (let i = 0; i < imageFiles.length; i++) {
+      const {
+        src,
+        label,
+      } = imageFiles[i];
+
+      const prediction = await this.props.predict(src, label);
       this.setState({
         predictions: this.state.predictions.concat({
           prediction,
           label,
-          image,
+          src,
         }),
       });
-    // }).then(images => {
-      // this.props.evaluate(images);
-    });
-    /*
-    const images = await getFilesAsImages(files, async (image: HTMLImageElement, label:string, files: IFileData[]) => {
-      return {
-      };
-    });
-    this.props.evaluate(images);
-    // return images;
-     */
+    }
   }
 
   render() {

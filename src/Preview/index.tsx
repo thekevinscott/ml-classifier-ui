@@ -3,12 +3,12 @@ import classNames from 'utils/classNames';
 import styles from './styles.scss';
 import Loading from '../Loading';
 // const styles = require('./styles.scss');
-import {
-  IImageData,
-} from '../utils/getFilesAsImages';
+// import {
+//   IImageData,
+// } from '../utils/getFilesAsImages';
 
 interface IProps {
-  images?: IImageData[];
+  images?: string[];
 }
 
 interface IState {
@@ -57,7 +57,7 @@ class Preview extends React.Component<IProps, IState> {
       images,
     } = this.props;
 
-    const image = images && images[this.state.imageIdx % images.length];
+    const src = images && images[this.state.imageIdx % images.length];
 
     const className = classNames(styles.container, {
       [styles.images]: images && images.length > 0,
@@ -65,11 +65,11 @@ class Preview extends React.Component<IProps, IState> {
 
     return (
       <div className={className}>
-        {image ? (
+        {src ? (
           <div
             className={styles.img}
             style={{
-              backgroundImage: `url(${image.image.src})`,
+              backgroundImage: `url(${src})`,
             }}
           />
         ) : (

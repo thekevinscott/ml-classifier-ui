@@ -1,0 +1,174 @@
+.search {
+  flex: 1;
+
+  .input {
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 20px;
+
+    small {
+      color: rgba(0,0,0,0.6);
+      position: absolute;
+      top: 45px;
+      bottom: 0px;
+      font-size: 10px;
+      right: 0px;
+    }
+  }
+
+  input {
+    flex: 1;
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: rgba(90,90,255,0.15);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+
+    &.add {
+      $size: 16px;
+      font-size: 14px;
+      border: none;
+      display: flex;
+      height: $size;
+      padding: 0;
+      top: 2px;
+      left: 2px;
+      width: $size;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background: white;
+      border-radius: $size;
+    }
+  }
+}
+
+.topic {
+  background: rgba(50,50,255,0.04);
+  border: 1px solid rgba(50,50,255,0.2);
+  border-radius: 4px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0 0;
+
+  button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0 5px;
+    font-size: 20px;
+    color: rgba(0,0,0,0.6);
+    margin-top: -2px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+
+  }
+}
+
+.images {
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  max-height: 460px;
+  overflow-y: scroll;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin: 0;
+    // margin-bottom: 5px;
+    // margin-top: 20px;
+  }
+}
+
+.loading {
+  width: 16px;
+  height: 16px;
+}
+
+.carousel {
+  .set {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    width: 100%;
+    max-height: 0;
+    overflow-x: scroll;
+    margin-bottom: 20px;
+
+    label {
+      position: absolute;
+      z-index: 1;
+      background: rgba(255,255,255,0.8);
+      font-size: 12px;
+      display: block;
+      color: rgba(0,0,0,0.8);
+      margin-right: 5px;
+    }
+
+    &.show {
+      max-height: 200px;
+    }
+  }
+
+  img {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+  }
+}
+
+.trainModel {
+  margin-top: 20px;
+}
+
+.image {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  margin-right: 5px;
+
+  img {
+    display: block;
+  }
+
+  button {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition-duration: 0.2s;
+    background: rgba(0,0,0,0.6);
+    font-size: 60px;
+    border-radius: 0;
+    color: white;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.top {
+  display: flex;
+  min-height: 100px;
+}

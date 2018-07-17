@@ -15,7 +15,11 @@
   flex: 1;
   margin-bottom: 20px !important;
 
-  &:last-child {
-    text-align: right;
+  li {
+    flex: 1;
   }
+}
+
+.label {
+  text-align: right;
 }

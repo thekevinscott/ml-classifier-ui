@@ -31,9 +31,9 @@ class Dropzone extends React.Component<IProps, IState> {
     e.preventDefault();
     e.persist();
 
-    console.log('pre transforming files');
+    // console.log('pre transforming files');
     const folders = await transformFiles(e);
-    console.log('post transforming files');
+    // console.log('post transforming files');
     if (e.dataTransfer.items) {
       e.dataTransfer.items.clear();
     } else {

@@ -8,14 +8,14 @@ export interface IImageData {
   image: HTMLImageElement;
 };
 
-const loadImage = async (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+export const loadImage = async (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
   const image = new Image();
   image.src = src;
   image.onload = () => resolve(image);
   image.onerror = (err) => reject(err);
 });
 
-const getFilesAsImageArray = async (files: FileList): Promise<IFileData[]> => {
+export const getFilesAsImageArray = async (files: FileList): Promise<IFileData[]> => {
   const classes = Object.keys(files);
   const images = [];
   for (let i = 0; i < classes.length; i++) {
@@ -31,32 +31,51 @@ const getFilesAsImageArray = async (files: FileList): Promise<IFileData[]> => {
   return images;
 };
 
-const getFilesAsImages = async (files: FileList, callback?: Function): Promise<IImageData[]> => {
-  const filesArr = await getFilesAsImageArray(files);
-  const promisedImages = await Promise.all(filesArr.map(async (file: IFileData): Promise<IImageData | null> => {
-    try {
-      const image = await loadImage(file.src);
-      if (callback) {
-        callback(image, file.label, filesArr);
-      }
-      return {
-        label: file.label,
-        image,
-      };
-    } catch(err) {
-      console.error(err);
-      return null;
-    }
-  }));
+// const getFilesAsImages = async (files: FileList, callback?: Function): Promise<IImageData[]> => {
+//   const filesArr = await getFilesAsImageArray(files);
+//   const promisedImages = await Promise.all(filesArr.map(async (file: IFileData): Promise<IImageData | null> => {
+//     try {
+//       const image = file.src;
+//       // const image = await loadImage(file.src);
+//       if (callback) {
+//         callback(image, file.label, filesArr);
+//       }
+//       return {
+//         label: file.label,
+//         image,
+//       };
+//     } catch(err) {
+//       console.error(err);
+//       return null;
+//     }
+//   }));
 
-  let legitFiles: IImageData[] = [];
-  for (let i = 0; i < promisedImages.length; i++) {
-    const promisedImage = promisedImages[i];
-    if (promisedImage !== null) {
-      legitFiles.push(promisedImage);
-    }
-  }
-  return legitFiles;
-};
+//   let legitFiles: IImageData[] = [];
+//   for (let i = 0; i < promisedImages.length; i++) {
+//     const promisedImage = promisedImages[i];
+//     if (promisedImage !== null) {
+//       legitFiles.push(promisedImage);
+//     }
+//   }
+//   return legitFiles;
+// };
 
-export default getFilesAsImages;
+export default getFilesAsImageArray;
+
+export const splitImagesFromLabels = async (images: IFileData[]) => {
+  const origData: {
+    images: string[];
+    labels: string[];
+  } = {
+    images: [],
+    labels: [],
+  };
+
+  return images.reduce((data, {
+    src,
+    label,
+  }: IFileData) => ({
+    images: data.images.concat(src),
+    labels: data.labels.concat(label),
+  }), origData);
+}

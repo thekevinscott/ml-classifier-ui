@@ -6138,6 +6138,10 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
+ml-classifier@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.3.6.tgz#29ae51283674ac5ee6142bf0fb63afc7b52e4380"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
