@@ -6,6 +6,7 @@ node_modules
 *.d.ts
 *.tgz
 dist
+example/build
 
 # Various caches, error logs and such
 yarn-error.log
