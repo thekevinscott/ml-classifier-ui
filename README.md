@@ -175,3 +175,5 @@ yarn test
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details
+
+![](https://ga-beacon.appspot.com/UA-112845439-4/ml-classifier-ui/readme)

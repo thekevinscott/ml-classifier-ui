@@ -8,6 +8,7 @@ import {
   IFileData,
   splitImagesFromLabels,
 } from 'utils/getFilesAsImages';
+import nextFrame from 'utils/nextFrame';
 
 import {
   ITrainResult,
@@ -102,7 +103,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     this.classifier = new MLClassifier({
       onLoadStart: this.props.onLoadStart,
       onLoadComplete: this.props.onLoadComplete,
@@ -185,7 +186,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
       const result: ITrainResult = await this.classifier.train({
         ...train,
         callbacks: {
-          onBatchEnd: (batch: any, logs: any) => {
+          onBatchEnd: async (batch: any, logs: any) => {
             if (train.callbacks && train.callbacks.onBatchEnd) {
               train.callbacks.onBatchEnd(batch, logs);
             }
@@ -198,6 +199,8 @@ class MLClassifierUI extends React.Component<IProps, IState> {
                 loss: (this.state.logs.loss || []).concat(loss),
               }
             });
+
+            await nextFrame();
           },
         },
       });

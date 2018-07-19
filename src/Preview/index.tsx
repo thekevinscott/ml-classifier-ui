@@ -71,7 +71,16 @@ class Preview extends React.Component<IProps, IState> {
     }
   }
 
+  private last: any;
   loopImages = () => {
+    if (this.last) {
+      const now = (new Date()).getTime();
+      const diff = now - this.last;
+      if (diff > LOOP_SPEED + 200) { // 200 ms wiggle room
+        // TODO: this indicates a UI slowdown
+        // console.log('diff', diff);
+      }
+    }
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
@@ -80,6 +89,7 @@ class Preview extends React.Component<IProps, IState> {
       imageIdx: this.state.imageIdx + 1,
     });
 
+    this.last = (new Date()).getTime();
     this.timeout = setTimeout(() => {
       this.loopImages();
     }, LOOP_SPEED);

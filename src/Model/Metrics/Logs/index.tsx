@@ -18,7 +18,6 @@ class Logs extends React.Component<IProps, IState> {
   };
 
   handleClick = (e:any) => {
-    console.log('click!');
     this.setState({
       expanded: !this.state.expanded,
     });
