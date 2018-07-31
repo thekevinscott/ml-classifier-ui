@@ -21,6 +21,10 @@
     height: 100%;
     max-height: 600px;
   }
+
+  &.center {
+    justify-content: center;
+  }
 }
 
 .info {

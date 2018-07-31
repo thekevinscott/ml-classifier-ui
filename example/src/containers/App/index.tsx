@@ -101,7 +101,7 @@ class App extends React.Component {
   public render() {
     return (
       <React.Fragment>
-        <div className={styles.classifierContainer}>
+        <div className={`${styles.classifierContainer} ${qs.SHOW_HELP ? null : styles.center}`}>
           <div className={styles.app}>
             <MLClassifierUI
               getMLClassifier={this.getMLClassifier}
