@@ -91,6 +91,11 @@ class App extends React.Component {
   public render() {
     return (
       <React.Fragment>
+        {SHOW_HELP === false && (
+        <style type="text-css"
+          dangerouslySetInnerHTML={{ __html: `.github-corner { display: none; }` }}
+        />
+        )}
         <div className={styles.classifierContainer}>
           <div className={styles.app}>
             <MLClassifierUI
