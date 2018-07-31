@@ -16,6 +16,10 @@ const qs: {
 
 const SHOW_HELP = qs.SHOW_HELP !== undefined ? qs.SHOW_HELP : true;
 
+if (SHOW_HELP === false) {
+  document.getElementById('.github-corner').remove();
+}
+
 const splitImagesFromLabels = async (images: IImage[]) => {
   const origData: {
     images: string[];
@@ -97,11 +101,6 @@ class App extends React.Component {
   public render() {
     return (
       <React.Fragment>
-        {SHOW_HELP === false && (
-        <style type="text-css"
-          dangerouslySetInnerHTML={{ __html: `.github-corner { display: none; }` }}
-        />
-        )}
         <div className={styles.classifierContainer}>
           <div className={styles.app}>
             <MLClassifierUI
