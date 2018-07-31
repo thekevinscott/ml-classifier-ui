@@ -102,7 +102,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <div className={`${styles.classifierContainer} ${qs.SHOW_HELP ? null : styles.center}`}>
-          <div className={styles.app}>
+          <div className={`${styles.app} ${qs.SHOW_HELP ? null : styles.centeredApp}`}>
             <MLClassifierUI
               getMLClassifier={this.getMLClassifier}
               onAddDataStart={this.onBeginTraining}
