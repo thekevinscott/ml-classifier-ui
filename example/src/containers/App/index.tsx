@@ -14,6 +14,8 @@ const qs: {
   [key]: val,
 }), {});
 
+console.log('qs', qs);
+
 const SHOW_HELP = qs.SHOW_HELP !== undefined ? qs.SHOW_HELP : true;
 
 const splitImagesFromLabels = async (images: IImage[]) => {
