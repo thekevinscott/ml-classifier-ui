@@ -11,10 +11,8 @@ const qs: {
   SHOW_HELP?: string;
 } = (window.location.search.split('?').pop() || '').split('&').filter(p => p).map(p => p.split('=')).reduce((obj, [key, val]) => ({
   ...obj,
-  [key]: parseInt(val, 10),
+  [key]: (val === "1" || val === "true") ? true : false,
 }), {});
-
-console.log('qs', qs);
 
 const SHOW_HELP = qs.SHOW_HELP !== undefined ? qs.SHOW_HELP : true;
 
