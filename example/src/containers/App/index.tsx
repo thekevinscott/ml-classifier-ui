@@ -7,7 +7,13 @@ import Search, {
 
 const CORS_BYPASS = 'https://fast-cove-30289.herokuapp.com/';
 
-const qs = window.location.search.split('?').pop().split('&').filter(p => p).map(p => p.split('=')).reduce((obj, [key, val]) => ({ ...obj, [key]: val, }), {});
+const qs: {
+  SHOW_HELP?: string;
+} = (window.location.search.split('?').pop() || '').split('&').filter(p => p).map(p => p.split('=')).reduce((obj, [key, val]) => ({
+  ...obj,
+  [key]: val,
+}), {});
+
 const SHOW_HELP = qs.SHOW_HELP !== undefined ? qs.SHOW_HELP : true;
 
 const splitImagesFromLabels = async (images: IImage[]) => {
