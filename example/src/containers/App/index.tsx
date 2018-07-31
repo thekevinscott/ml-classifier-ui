@@ -11,7 +11,7 @@ const qs: {
   SHOW_HELP?: string;
 } = (window.location.search.split('?').pop() || '').split('&').filter(p => p).map(p => p.split('=')).reduce((obj, [key, val]) => ({
   ...obj,
-  [key]: val,
+  [key]: parseInt(val, 10),
 }), {});
 
 console.log('qs', qs);
