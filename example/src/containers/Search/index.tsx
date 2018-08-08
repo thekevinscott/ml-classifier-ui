@@ -77,7 +77,6 @@ class Search extends React.Component<IProps, IState> {
 
     const images = transformImages(this.state.picked, this.state.searches, 0, 5);
     const evalImages = transformImages(this.state.picked, this.state.searches, 5, 10);
-    console.log(images);
 
     this.props.train(images, evalImages);
   }

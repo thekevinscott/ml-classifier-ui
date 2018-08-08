@@ -59,6 +59,7 @@ interface IProps {
   getMLClassifier?: Function;
   uploadFormat: string;
   imagesFormats: string[];
+  showDownload?: boolean;
   onLoadStart?: Function;
   onLoadComplete?: Function;
   onAddDataStart?: Function;
@@ -80,6 +81,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
     params: { },
     uploadFormat: 'nested',
     imagesFormats: undefined,
+    showDownload: true,
   };
 
   private classifier: any;
@@ -278,7 +280,7 @@ class MLClassifierUI extends React.Component<IProps, IState> {
             logs={this.state.logs}
             labels={this.state.labels}
             downloading={this.state.downloading}
-            onDownload={this.handleDownload}
+            onDownload={this.props.showDownload ? this.handleDownload : undefined}
             predict={this.predict}
             predictions={this.state.predictions}
             accuracy={this.state.accuracy}
