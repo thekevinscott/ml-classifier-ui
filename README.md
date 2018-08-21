@@ -6,7 +6,7 @@ This package is the UI front end for [`ml-classifier`](https://github.com/thekev
 
 ## Walkthrough
 
-A walkthrough of the code can be found in the article ["Image Classification in the Browser with Javascript"](https://thekevinscott.com/image-classification-with-javascript/).
+A walkthrough of the code can be found in the article [Image Classification in the Browser with Javascript](https://thekevinscott.com/image-classification-with-javascript/).
 
 ## Demo
 
