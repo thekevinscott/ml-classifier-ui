@@ -4,6 +4,10 @@ ML Classifier is a React front end for a machine learning engine for quickly tra
 
 This package is the UI front end for [`ml-classifier`](https://github.com/thekevinscott/ml-classifier).
 
+## Walkthrough
+
+A walkthrough of the code can be found in the article ["Image Classification in the Browser with Javascript"](https://thekevinscott.com/image-classification-with-javascript/).
+
 ## Demo
 
 An interactive [demo can be found here](https://thekevinscott.github.io/ml-classifier-ui/).
