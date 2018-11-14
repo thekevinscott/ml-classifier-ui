@@ -31,7 +31,11 @@ or
 npm install ml-classifier-ui
 ```
 
-### Quick Start
+### Quick Start (Code Sandbox)
+
+You can fork a live running version at [codesandbox.io](https://codesandbox.io/s/218po5mzxn).
+
+### Quick Start (Running locally)
 
 Start by instantiating a new MLClassifierUI.
 
