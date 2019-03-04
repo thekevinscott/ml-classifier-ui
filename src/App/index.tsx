@@ -3,8 +3,6 @@ import * as React from 'react';
 import Dropzone from '../Dropzone';
 import {
   getFilesAsImageArray,
-  // loadImage,
-  // IImageData,
   IFileData,
   splitImagesFromLabels,
 } from 'utils/getFilesAsImages';
