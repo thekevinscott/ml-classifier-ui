@@ -2687,8 +2687,8 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     is-extendable "^1.0.1"
 
 extend@~3.0.0, extend@~3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
 
 external-editor@^2.0.4:
   version "2.2.0"
@@ -5002,13 +5002,13 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
     minimist "0.0.8"
 
 "ml-classifier-ui@file:..":
-  version "0.5.0"
+  version "0.5.1"
   dependencies:
-    ml-classifier "0.5.0"
+    ml-classifier "0.5.1"
 
-ml-classifier@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.5.0.tgz#08380e7c984c63dd5601e44a3e6d553e34608fcb"
+ml-classifier@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.5.1.tgz#28e79e0bd47a05647caf818aa892295eaf547322"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
