@@ -5002,13 +5002,13 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
     minimist "0.0.8"
 
 "ml-classifier-ui@file:..":
-  version "0.5.0"
+  version "0.5.1"
   dependencies:
-    ml-classifier "0.5.0"
+    ml-classifier "0.5.1"
 
-ml-classifier@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.5.0.tgz#08380e7c984c63dd5601e44a3e6d553e34608fcb"
+ml-classifier@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/ml-classifier/-/ml-classifier-0.5.1.tgz#28e79e0bd47a05647caf818aa892295eaf547322"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -6278,9 +6278,9 @@ react-dom@^15.0.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react-dom@^16.4.1:
-  version "16.4.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.1.tgz#7f8b0223b3a5fbe205116c56deb85de32685dad6"
+react-dom@^16.4.2:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
