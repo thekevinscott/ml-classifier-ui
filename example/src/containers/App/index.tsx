@@ -116,7 +116,7 @@ class App extends React.Component {
             <div className={styles.info}>
               <h2>Instructions</h2>
               <p>
-                Drag and drop some labeled images below to begin training your classifier. <a href="https://thekevinscott.com/download-image-datasets-for-image-classification/">You can download image datasets here.</a>
+                Drag and drop some labeled images below to begin training your classifier. <a href="https://thekevinscott.com/download-image-datasets">You can download image datasets here.</a>
             </p>
               <p><em>Organize your images into folders, where the folders' names are the desired labels.</em></p>
               <div className={styles.imgContainer}>
