@@ -16,3 +16,5 @@ package-lock.json
 # Don't include stylesheet typings
 src/*.css.d.ts
 src/**/*.css.d.ts
+
+.DS_Store
